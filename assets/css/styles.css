@@ -4,5 +4,27 @@
 
 body {
     margin:0;
+    background-color:#f5f5f5;
+}
+
+nav {
+    box-shadow: 6px 28px 41px -17px rgb(0 0 0 / 54%);
+    -webkit-box-shadow: 6px 28px 41px -17px rgb(0 0 0 / 54%);
+    -moz-box-shadow: 6px 28px 41px -17px rgba(0,0,0,0.54);
+    position: fixed;
+    background-color: #0A192F;
+    top: 0;
+}
+
+nav img {
+    padding-right: 5px;
+}
+
+.nav-link {
+    color: white 
+}
+
+.title {
+    font-size:50px
 }
 

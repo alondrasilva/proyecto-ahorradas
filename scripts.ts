@@ -2,7 +2,7 @@ const body = document.body
 
 const header = document.createElement('header')
 const navbar = document.createElement('nav')
-navbar.classList.add('navbar', 'bg-secondary', 'container-fluid')
+navbar.classList.add('navbar', 'container-fluid')
 
 const navbarLogo = document.createElement('div')
 const navbarMenu = document.createElement('div')
@@ -14,12 +14,11 @@ navbar.appendChild(navbarMenu)
 
 const aNavbarLogo = document.createElement('a')
 aNavbarLogo.setAttribute('href', 'index.html')
-aNavbarLogo.classList.add('nav-link')
+aNavbarLogo.classList.add('nav-link', 'navbar-brand', "title")
 const imgNavbar = document.createElement('img')
 imgNavbar.setAttribute('src','./assets/images/wallet-solid.png')
 imgNavbar.setAttribute('alt', 'Navbar Logo')
-imgNavbar.setAttribute('width', '30')
-imgNavbar.setAttribute('height', '24')
+imgNavbar.setAttribute('width', '60')
 const titleNavbar = document.createTextNode('AhorrADAs')
 imgNavbar.classList.add('d-inline-block', 'align-text-top')
 
@@ -33,7 +32,7 @@ navbarList.classList.add('navbar-nav', 'flex-row', 'me-3')
 
 const navbarItem1 = document.createElement('li')
 const aNavbarItem1 = document.createElement('a')
-navbarItem1.classList.add('nav-item')
+navbarItem1.classList.add('nav-item', 'me-3')
 aNavbarItem1.setAttribute('href', './index.html')
 aNavbarItem1.classList.add('nav-link')
 
@@ -50,7 +49,6 @@ const navbarItemText1 = document.createTextNode('Balance')
 
 navbarMenu.appendChild(navbarList)
 
-
 navbarList.appendChild(navbarItem1)
 aNavbarItem1.appendChild(imgBalance)
 aNavbarItem1.appendChild(navbarItemText1)
@@ -58,7 +56,7 @@ aNavbarItem1.appendChild(navbarItemText1)
 
 const navbarItem2 = document.createElement('li')
 const aNavbarItem2 = document.createElement('a')
-navbarItem2.classList.add('nav-item')
+navbarItem2.classList.add('nav-item','me-3')
 aNavbarItem2.setAttribute('href', './categories.html')
 aNavbarItem2.classList.add('nav-link')
 
@@ -78,7 +76,7 @@ aNavbarItem2.appendChild(navbarItemText2)
 
 const navbarItem3 = document.createElement('li')
 const aNavbarItem3 = document.createElement('a')
-navbarItem3.classList.add('nav-item')
+navbarItem3.classList.add('nav-item','me-3')
 aNavbarItem3.setAttribute('href', './reports.html')
 aNavbarItem3.classList.add('nav-link')
 
