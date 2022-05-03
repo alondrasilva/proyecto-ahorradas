@@ -6,7 +6,7 @@ rowContainer.classList.add('row', 'd-flex');
 var aside = document.createElement('div');
 aside.classList.add('aside', 'col-4');
 var main = document.createElement('div');
-main.classList.add('main', 'col-8');
+main.classList.add('main', 'col-8', 'p-4', 'shadow-sm');
 body.appendChild(container);
 container.appendChild(rowContainer);
 rowContainer.appendChild(aside);
@@ -14,9 +14,9 @@ rowContainer.appendChild(main);
 var rowAside = document.createElement('div');
 rowAside.classList.add('flex-row');
 var divBalance = document.createElement('div');
-divBalance.classList.add('col-3', 'balance', 'mb-3', 'p-4');
+divBalance.classList.add('col-3', 'balance', 'mb-3', 'p-4', 'shadow-sm');
 var divFilter = document.createElement('div');
-divFilter.classList.add('col-8', 'filter', 'p-4');
+divFilter.classList.add('col-8', 'filter', 'p-4', 'shadow-sm');
 aside.appendChild(rowAside);
 rowAside.appendChild(divBalance);
 rowAside.appendChild(divFilter);
@@ -26,7 +26,7 @@ var texth3 = document.createTextNode('Balance');
 h3.appendChild(texth3);
 divBalance.appendChild(h3);
 var balanceTable = document.createElement('table');
-balanceTable.classList.add('table');
+balanceTable.classList.add('table', 'table-borderless');
 var tbody = document.createElement('tbody');
 var tr1 = document.createElement('tr');
 var td1 = document.createElement('td');
@@ -79,20 +79,24 @@ filterTop.appendChild(h4);
 filterTop.appendChild(p);
 // Comienzo form de la seccion filtros
 var form = document.createElement('form');
+// label tipo
 var labelTypes = document.createElement('label');
-var textLabelTypes = document.createTextNode('Tipos');
+var textLabelTypes = document.createTextNode('Tipo');
 labelTypes.setAttribute('for', 'select-types');
 labelTypes.classList.add('d-block');
+// select tipo
 var selectTypes = document.createElement('select');
 selectTypes.setAttribute('name', 'select-types');
 selectTypes.setAttribute('id', 'select-types');
-// Options
+//option todos
 var option1 = document.createElement('option');
 var textOption1 = document.createTextNode('Todos');
 option1.setAttribute('value', 'all');
+//option gastos
 var option2 = document.createElement('option');
 var textOption2 = document.createTextNode('Gastos');
 option2.setAttribute('value', 'expenses');
+//option ganancias
 var option3 = document.createElement('option');
 var textOption3 = document.createTextNode('Ganancias');
 option2.setAttribute('value', 'revenues');
@@ -106,3 +110,208 @@ option2.appendChild(textOption2);
 selectTypes.appendChild(option2);
 option3.appendChild(textOption3);
 selectTypes.appendChild(option3);
+//label categoria 
+var labelCategory = document.createElement('label');
+var textLabelCategory = document.createTextNode('Categoría');
+labelCategory.setAttribute('for', 'select-category');
+labelCategory.classList.add('d-block');
+//select categoria
+var selectCategory = document.createElement('select');
+selectCategory.setAttribute('name', 'select-category');
+selectCategory.setAttribute('id', 'select-category');
+//option todas
+var optionC1 = document.createElement('option');
+var textOptionC1 = document.createTextNode('Todas');
+optionC1.setAttribute('value', 'all');
+//option comida
+var optionC2 = document.createElement('option');
+var textOptionC2 = document.createTextNode('Comida');
+optionC2.setAttribute('value', 'food');
+//option servivios 
+var optionC3 = document.createElement('option');
+var textOptionC3 = document.createTextNode('Servicios');
+optionC3.setAttribute('value', 'services');
+//option salidas 
+var optionC4 = document.createElement('option');
+var textOptionC4 = document.createTextNode('Salidas');
+optionC4.setAttribute('value', 'outgoing');
+//option educación
+var optionC5 = document.createElement('option');
+var textOptionC5 = document.createTextNode('Educación');
+optionC5.setAttribute('value', 'education');
+//option transporte
+var optionC6 = document.createElement('option');
+var textOptionC6 = document.createTextNode('Transporte');
+optionC6.setAttribute('value', 'transport');
+//option trabajo 
+var optionC7 = document.createElement('option');
+var textOptionC7 = document.createTextNode('Trabajo');
+optionC7.setAttribute('value', 'work');
+form.appendChild(labelCategory);
+form.appendChild(selectCategory);
+labelCategory.appendChild(textLabelCategory);
+optionC1.appendChild(textOptionC1);
+selectCategory.appendChild(optionC1);
+optionC2.appendChild(textOptionC2);
+selectCategory.appendChild(optionC2);
+optionC3.appendChild(textOptionC3);
+selectCategory.appendChild(optionC3);
+optionC4.appendChild(textOptionC4);
+selectCategory.appendChild(optionC4);
+optionC5.appendChild(textOptionC5);
+selectCategory.appendChild(optionC5);
+optionC6.appendChild(textOptionC6);
+selectCategory.appendChild(optionC6);
+optionC7.appendChild(textOptionC7);
+selectCategory.appendChild(optionC7);
+//label "desde", fecha
+var labelDate = document.createElement('label');
+var textLabelDate = document.createTextNode('Desde');
+labelDate.setAttribute('for', 'input-date');
+labelDate.classList.add('d-block');
+//input date, fecha
+var input = document.createElement('input');
+input.setAttribute('name', 'input-date');
+input.setAttribute('type', 'date');
+input.setAttribute('value', '2022-05-02');
+input.setAttribute('id', 'input-date');
+form.appendChild(labelDate);
+form.appendChild(input);
+labelDate.appendChild(textLabelDate);
+//label ordenar
+var labelOrder = document.createElement('label');
+var textLabelOrder = document.createTextNode('Ordenar por');
+labelOrder.setAttribute('for', 'select-order');
+labelOrder.classList.add('d-block');
+//select ordernar por
+var selectOrder = document.createElement('select');
+selectOrder.setAttribute('name', 'select-category');
+selectOrder.setAttribute('id', 'select-category');
+//option más reciente
+var optionO1 = document.createElement('option');
+var textOptionO1 = document.createTextNode('Más reciente');
+optionO1.setAttribute('value', 'recent');
+//option menos reciente
+var optionO2 = document.createElement('option');
+var textOptionO2 = document.createTextNode('Menos reciente');
+optionO2.setAttribute('value', 'least recent');
+//option mayor monto
+var optionO3 = document.createElement('option');
+var textOptionO3 = document.createTextNode('Mayor monto');
+optionO3.setAttribute('value', 'high value');
+//option menor monto
+var optionO4 = document.createElement('option');
+var textOptionO4 = document.createTextNode('Menor monto');
+optionO4.setAttribute('value', 'less value');
+//option A/Z
+var optionO5 = document.createElement('option');
+var textOptionO5 = document.createTextNode('A/Z');
+optionO5.setAttribute('value', 'a/z');
+//option Z/A
+var optionO6 = document.createElement('option');
+var textOptionO6 = document.createTextNode('Z/A');
+optionO6.setAttribute('value', 'z/a');
+form.appendChild(labelOrder);
+form.appendChild(selectOrder);
+labelOrder.appendChild(textLabelOrder);
+optionO1.appendChild(textOptionO1);
+selectOrder.appendChild(optionO1);
+optionO2.appendChild(textOptionO2);
+selectOrder.appendChild(optionO2);
+optionO3.appendChild(textOptionO3);
+selectOrder.appendChild(optionO3);
+optionO4.appendChild(textOptionO4);
+selectOrder.appendChild(optionO4);
+optionO5.appendChild(textOptionO5);
+selectOrder.appendChild(optionO5);
+optionO6.appendChild(textOptionO6);
+selectOrder.appendChild(optionO6);
+//Comienza parte de Operaciones
+var divOperations = document.createElement('div');
+divOperations.classList.add('d-flex', 'justify-content-between');
+var operationTitle = document.createElement('h4');
+var operationTitleText = document.createTextNode('Operaciones');
+var btn = document.createElement('button');
+btn.classList.add('btn', 'btn-primary');
+var textBtn = document.createTextNode('+ Nueva operacion');
+main.appendChild(divOperations);
+divOperations.appendChild(operationTitle);
+operationTitle.appendChild(operationTitleText);
+divOperations.appendChild(btn);
+btn.appendChild(textBtn);
+var divOperationsEmpty = document.createElement('div');
+divOperationsEmpty.classList.add('d-flex', 'flex-column', 'justify-content-center', 'align-items-center', 'margin-top');
+var imgEmpty = document.createElement('img');
+imgEmpty.setAttribute('src', './assets/images/cash_left.png');
+imgEmpty.setAttribute('width', '390px');
+var pEmpty = document.createElement('p');
+pEmpty.classList.add('fs-3');
+var textPEmpty = document.createTextNode('Sin resultados');
+var pEmpty2 = document.createElement('p');
+var textPEmpty2 = document.createTextNode('Cambia los filtros o agreaga operaciones');
+main.appendChild(divOperationsEmpty);
+divOperationsEmpty.appendChild(imgEmpty);
+divOperationsEmpty.appendChild(pEmpty);
+pEmpty.appendChild(textPEmpty);
+divOperationsEmpty.appendChild(pEmpty2);
+pEmpty2.appendChild(textPEmpty2);
+var divOperationsShow = document.createElement('div');
+//Seccion de operaciones con contenido con tablas
+var tableOperations = document.createElement('table');
+tableOperations.classList.add('table');
+var theadOperations = document.createElement('thead');
+var trOperations = document.createElement('tr');
+var th1Operations = document.createElement('th');
+var textTh1Operations = document.createTextNode('Descripcion');
+var th2Operations = document.createElement('th');
+var textTh2Operations = document.createTextNode('Categoría');
+var th3Operations = document.createElement('th');
+var textTh3Operations = document.createTextNode('Fecha');
+var th4Operations = document.createElement('th');
+var textTh4Operations = document.createTextNode('Monto');
+var th5Operations = document.createElement('th');
+var textTh5Operations = document.createTextNode('Acciones');
+main.appendChild(divOperationsShow);
+divOperationsShow.appendChild(tableOperations);
+tableOperations.appendChild(theadOperations);
+theadOperations.appendChild(trOperations);
+trOperations.appendChild(th1Operations);
+trOperations.appendChild(th2Operations);
+trOperations.appendChild(th3Operations);
+trOperations.appendChild(th4Operations);
+trOperations.appendChild(th5Operations);
+th1Operations.appendChild(textTh1Operations);
+th2Operations.appendChild(textTh2Operations);
+th3Operations.appendChild(textTh3Operations);
+th4Operations.appendChild(textTh4Operations);
+th5Operations.appendChild(textTh5Operations);
+var tbodyOperations = document.createElement('tbody');
+var trOperations2 = document.createElement('tr');
+var tdOperations1 = document.createElement('td');
+var tdOperations2 = document.createElement('td');
+var tdOperations3 = document.createElement('td');
+var tdOperations4 = document.createElement('td');
+var tdOperations5 = document.createElement('td');
+var textTdOperations1 = document.createTextNode('Bebida');
+var textTdOperations2 = document.createTextNode('Bebida');
+var textTdOperations3 = document.createTextNode('2/5/2022');
+var textTdOperations4 = document.createTextNode('+45');
+tableOperations.appendChild(tbodyOperations);
+tbodyOperations.appendChild(trOperations2);
+trOperations2.appendChild(tdOperations1);
+trOperations2.appendChild(tdOperations2);
+trOperations2.appendChild(tdOperations3);
+trOperations2.appendChild(tdOperations4);
+trOperations2.appendChild(tdOperations5);
+tdOperations1.appendChild(textTdOperations1);
+tdOperations2.appendChild(textTdOperations2);
+tdOperations3.appendChild(textTdOperations3);
+tdOperations4.appendChild(textTdOperations4);
+var btnEditOp = document.createElement('button');
+btnEditOp.classList.add('btn', 'btn-secondary', 'btn-sm', 'me-1');
+btnEditOp.textContent = "Editar";
+var btnDeleteOp = document.createElement('button');
+btnDeleteOp.classList.add('btn', 'btn-secondary', 'btn-sm');
+btnDeleteOp.textContent = "Eliminar";
+tdOperations5.appendChild(btnEditOp);
+tdOperations5.appendChild(btnDeleteOp);

@@ -2,7 +2,7 @@ const body = document.body
 
 const header = document.createElement('header')
 const navbar = document.createElement('nav')
-navbar.classList.add('navbar', 'container-fluid')
+navbar.classList.add('navbar', 'container-fluid', 'shadow-sm')
 
 const navbarLogo = document.createElement('div')
 const navbarMenu = document.createElement('div')
