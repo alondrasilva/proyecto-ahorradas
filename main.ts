@@ -310,6 +310,9 @@ divOperations.classList.add('d-flex', 'justify-content-between')
 const operationTitle = document.createElement('h4')
 const operationTitleText = document.createTextNode('Operaciones')
 
+const a = document.createElement('a')
+a.setAttribute('href', './newOperation.html')
+
 const btn = document.createElement('button')
 btn.classList.add('btn', 'btn-primary')
 const textBtn = document.createTextNode('+ Nueva operacion')
@@ -318,7 +321,8 @@ main.appendChild(divOperations)
 divOperations.appendChild(operationTitle)
 operationTitle.appendChild(operationTitleText)
 
-divOperations.appendChild(btn)
+divOperations.appendChild(a)
+a.appendChild(btn)
 btn.appendChild(textBtn)
 
 const divOperationsEmpty = document.createElement('div')

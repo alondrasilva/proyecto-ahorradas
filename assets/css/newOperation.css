@@ -1,0 +1,11 @@
+.main {
+    background-color: white;
+}
+form label {
+    margin-top:20px;
+    font-size:20px;
+}
+
+form select, input {
+    height: 35px;
+}
