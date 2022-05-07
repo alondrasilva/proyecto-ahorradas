@@ -151,75 +151,29 @@ selectTypes.appendChild(option3)
 
 //label categoria 
 const labelCategory = document.createElement('label')
-const textLabelCategory = document.createTextNode('Categoría')
-labelCategory.setAttribute('for', 'select-category')
-labelCategory.classList.add('d-block')
-
-//select categoria
+labelCategory.textContent = "Categorías"
+labelCategory.setAttribute('for', 'categories')
 const selectCategory = document.createElement('select')
-selectCategory.setAttribute('name', 'select-category')
-selectCategory.setAttribute('id', 'select-category')
-
-//option todas
-const optionC1 = document.createElement('option')
-const textOptionC1 = document.createTextNode('Todas')
-optionC1.setAttribute('value', 'all')
-
-//option comida
-const optionC2 = document.createElement('option')
-const textOptionC2 = document.createTextNode('Comida')
-optionC2.setAttribute('value', 'food')
-
-//option servivios 
-const optionC3 = document.createElement('option')
-const textOptionC3 = document.createTextNode('Servicios')
-optionC3.setAttribute('value', 'services')
-
-//option salidas 
-const optionC4 = document.createElement('option')
-const textOptionC4 = document.createTextNode('Salidas')
-optionC4.setAttribute('value', 'outgoing')
-
-//option educación
-const optionC5 = document.createElement('option')
-const textOptionC5 = document.createTextNode('Educación')
-optionC5.setAttribute('value', 'education')
-
-//option transporte
-const optionC6 = document.createElement('option')
-const textOptionC6 = document.createTextNode('Transporte')
-optionC6.setAttribute('value', 'transport')
-
-//option trabajo 
-const optionC7 = document.createElement('option')
-const textOptionC7 = document.createTextNode('Trabajo')
-optionC7.setAttribute('value', 'work')
+selectCategory.setAttribute('name', 'categories')
+selectCategory.setAttribute('id', 'categories')
 
 form.appendChild(labelCategory)
 form.appendChild(selectCategory)
 
-labelCategory.appendChild(textLabelCategory)
+const categories = ['Comida', 'Educación', 'Transporte', 'Hola'] 
 
-optionC1.appendChild(textOptionC1)
-selectCategory.appendChild(optionC1)
+for (let category of categories) {
 
-optionC2.appendChild(textOptionC2)
-selectCategory.appendChild(optionC2)
+    const option = document.createElement('option')
+    option.setAttribute('value', `${category}`)
+    option.setAttribute('id', `${category}`)
+    option.textContent = `${category}`
 
-optionC3.appendChild(textOptionC3)
-selectCategory.appendChild(optionC3)
+    selectCategory.appendChild(option)
 
-optionC4.appendChild(textOptionC4)
-selectCategory.appendChild(optionC4)
+}
 
-optionC5.appendChild(textOptionC5)
-selectCategory.appendChild(optionC5)
-
-optionC6.appendChild(textOptionC6)
-selectCategory.appendChild(optionC6)
-
-optionC7.appendChild(textOptionC7)
-selectCategory.appendChild(optionC7)
+console.log(categories)
 
 //label "desde", fecha
 const labelDate = document.createElement('label')
@@ -315,6 +269,7 @@ a.setAttribute('href', './newOperation.html')
 
 const btn = document.createElement('button')
 btn.classList.add('btn', 'btn-primary')
+btn.setAttribute('id', 'btn-new-operation')
 const textBtn = document.createTextNode('+ Nueva operacion')
 
 main.appendChild(divOperations)
@@ -353,6 +308,7 @@ const divOperationsShow = document.createElement('div')
 
 const tableOperations = document.createElement('table')
 tableOperations.classList.add('table')
+tableOperations.setAttribute('id', 'table-operations')
 const theadOperations = document.createElement('thead')
 const trOperations = document.createElement('tr')
 
@@ -390,6 +346,7 @@ th4Operations.appendChild(textTh4Operations)
 th5Operations.appendChild(textTh5Operations)
 
 const tbodyOperations = document.createElement('tbody')
+tbodyOperations.setAttribute('id', 'table-body')
 const trOperations2 = document.createElement('tr')
 
 const tdOperations1 = document.createElement('td')

@@ -124,3 +124,5 @@ div.appendChild(btnCancel)
 div.appendChild(btnAdd)
 
 
+// Crear nueva operación
+

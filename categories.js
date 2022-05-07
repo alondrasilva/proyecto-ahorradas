@@ -15,11 +15,16 @@ var div = document.createElement('div');
 var label = document.createElement('label');
 label.textContent = "Nombre";
 var input = document.createElement('input');
+input.setAttribute('id', 'input-add-category');
 divCategory.appendChild(form);
 form.appendChild(div);
 div.appendChild(label);
 div.appendChild(input);
 var btn = document.createElement('button');
 btn.classList.add('btn', 'btn-primary');
+btn.setAttribute('id', 'btn-add-category');
 btn.textContent = "Agregar";
 form.appendChild(btn);
+var select = document.getElementById('categories');
+// Crear nueva categorías
+// // guardar en el local storage
