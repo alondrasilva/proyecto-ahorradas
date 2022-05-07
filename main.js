@@ -112,58 +112,23 @@ option3.appendChild(textOption3);
 selectTypes.appendChild(option3);
 //label categoria 
 var labelCategory = document.createElement('label');
-var textLabelCategory = document.createTextNode('Categoría');
-labelCategory.setAttribute('for', 'select-category');
-labelCategory.classList.add('d-block');
-//select categoria
+labelCategory.textContent = "Categorías";
+labelCategory.setAttribute('for', 'categories');
 var selectCategory = document.createElement('select');
-selectCategory.setAttribute('name', 'select-category');
-selectCategory.setAttribute('id', 'select-category');
-//option todas
-var optionC1 = document.createElement('option');
-var textOptionC1 = document.createTextNode('Todas');
-optionC1.setAttribute('value', 'all');
-//option comida
-var optionC2 = document.createElement('option');
-var textOptionC2 = document.createTextNode('Comida');
-optionC2.setAttribute('value', 'food');
-//option servivios 
-var optionC3 = document.createElement('option');
-var textOptionC3 = document.createTextNode('Servicios');
-optionC3.setAttribute('value', 'services');
-//option salidas 
-var optionC4 = document.createElement('option');
-var textOptionC4 = document.createTextNode('Salidas');
-optionC4.setAttribute('value', 'outgoing');
-//option educación
-var optionC5 = document.createElement('option');
-var textOptionC5 = document.createTextNode('Educación');
-optionC5.setAttribute('value', 'education');
-//option transporte
-var optionC6 = document.createElement('option');
-var textOptionC6 = document.createTextNode('Transporte');
-optionC6.setAttribute('value', 'transport');
-//option trabajo 
-var optionC7 = document.createElement('option');
-var textOptionC7 = document.createTextNode('Trabajo');
-optionC7.setAttribute('value', 'work');
+selectCategory.setAttribute('name', 'categories');
+selectCategory.setAttribute('id', 'categories');
 form.appendChild(labelCategory);
 form.appendChild(selectCategory);
-labelCategory.appendChild(textLabelCategory);
-optionC1.appendChild(textOptionC1);
-selectCategory.appendChild(optionC1);
-optionC2.appendChild(textOptionC2);
-selectCategory.appendChild(optionC2);
-optionC3.appendChild(textOptionC3);
-selectCategory.appendChild(optionC3);
-optionC4.appendChild(textOptionC4);
-selectCategory.appendChild(optionC4);
-optionC5.appendChild(textOptionC5);
-selectCategory.appendChild(optionC5);
-optionC6.appendChild(textOptionC6);
-selectCategory.appendChild(optionC6);
-optionC7.appendChild(textOptionC7);
-selectCategory.appendChild(optionC7);
+var categories = ['Comida', 'Educación', 'Transporte', 'Hola'];
+for (var _i = 0, categories_1 = categories; _i < categories_1.length; _i++) {
+    var category = categories_1[_i];
+    var option = document.createElement('option');
+    option.setAttribute('value', "".concat(category));
+    option.setAttribute('id', "".concat(category));
+    option.textContent = "".concat(category);
+    selectCategory.appendChild(option);
+}
+console.log(categories);
 //label "desde", fecha
 var labelDate = document.createElement('label');
 var textLabelDate = document.createTextNode('Desde');
@@ -235,6 +200,7 @@ var a = document.createElement('a');
 a.setAttribute('href', './newOperation.html');
 var btn = document.createElement('button');
 btn.classList.add('btn', 'btn-primary');
+btn.setAttribute('id', 'btn-new-operation');
 var textBtn = document.createTextNode('+ Nueva operacion');
 main.appendChild(divOperations);
 divOperations.appendChild(operationTitle);
@@ -262,6 +228,7 @@ var divOperationsShow = document.createElement('div');
 //Seccion de operaciones con contenido con tablas
 var tableOperations = document.createElement('table');
 tableOperations.classList.add('table');
+tableOperations.setAttribute('id', 'table-operations');
 var theadOperations = document.createElement('thead');
 var trOperations = document.createElement('tr');
 var th1Operations = document.createElement('th');
@@ -289,6 +256,7 @@ th3Operations.appendChild(textTh3Operations);
 th4Operations.appendChild(textTh4Operations);
 th5Operations.appendChild(textTh5Operations);
 var tbodyOperations = document.createElement('tbody');
+tbodyOperations.setAttribute('id', 'table-body');
 var trOperations2 = document.createElement('tr');
 var tdOperations1 = document.createElement('td');
 var tdOperations2 = document.createElement('td');

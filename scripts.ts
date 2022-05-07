@@ -94,4 +94,81 @@ aNavbarItem3.appendChild(imgReports)
 aNavbarItem3.appendChild(navbarItemText3)
 
 
+// Local Storage
 
+type LStorage = {
+    categories: string[],
+    operations: Object[]
+}
+
+type Category = {
+    name: string,
+}
+
+type Operation = {
+    description: string,
+    category: Category,
+    date: Date,
+    amount: number
+}
+
+const initialStorage: LStorage = {
+    categories: ["Comida", "Transporte", "Educación"],
+    operations: []
+}
+
+const lStorage = localStorage.setItem('ahorradas-data', JSON.stringify(initialStorage))
+
+
+let hola = "Hola"
+
+
+
+const inputCartegoryToAdd = document.getElementById('input-add-category')
+const buttonToAdd = document.getElementById('btn-add-category') 
+
+
+let oldData
+let newData: string
+
+buttonToAdd.addEventListener('click', () => {
+
+    addCategory()
+    console.log(`${inputCartegoryToAdd.value}`);
+    
+
+}
+
+    // if(localStorage.getItem('ahorradas-data')) {
+    //     let oldData = JSON.parse(localStorage.getItem('ahorradas-data'))
+    //     let newData = initialStorage.categories.push(`${inputCartegoryToAdd.value}`)
+    //     // playlist.addSong = function addSong(cancion) { playlist.songs.push(cancion) }
+    //     // let newData = initialStorage.categories.push("chuchu")
+    //     localStorage.setItem('ahorradas-data', JSON.stringify(initialStorage))
+    // }
+
+)
+
+function addCategory() {
+    if(localStorage.getItem('ahorradas-data')) {
+        let oldData = JSON.parse(localStorage.getItem('ahorradas-data'))
+        let newData = initialStorage.categories.push("Hola")
+        // playlist.addSong = function addSong(cancion) { playlist.songs.push(cancion) }
+        // let newData = initialStorage.categories.push("chuchu")
+        localStorage.setItem('ahorradas-data', JSON.stringify(initialStorage))
+    }
+}
+
+// addCategory()
+
+
+
+    
+
+    
+
+// }
+
+// addCategory()
+
+// initialStorage.categories.push("Hola")
