@@ -116,19 +116,30 @@ labelCategory.textContent = "Categorías";
 labelCategory.setAttribute('for', 'categories');
 var selectCategory = document.createElement('select');
 selectCategory.setAttribute('name', 'categories');
-selectCategory.setAttribute('id', 'categories');
+selectCategory.setAttribute('id', 'filter-categories');
 form.appendChild(labelCategory);
 form.appendChild(selectCategory);
-var categories = ['Comida', 'Educación', 'Transporte', 'Hola'];
-for (var _i = 0, categories_1 = categories; _i < categories_1.length; _i++) {
-    var category = categories_1[_i];
-    var option = document.createElement('option');
-    option.setAttribute('value', "".concat(category));
-    option.setAttribute('id', "".concat(category));
-    option.textContent = "".concat(category);
-    selectCategory.appendChild(option);
-}
-console.log(categories);
+// const categories = ['Comida', 'Educación']
+// const createCategoryFilter = () => {
+//     if(JSON.parse(localStorage.getItem('ahorradas-data'))) {
+//         initialStorage.categories.forEach((category) => {
+//             console.log(category)
+//             const option = document.createElement('option')
+//             option.setAttribute('value', `${category}`)
+//             option.setAttribute('id', `${category}`)
+//             option.textContent = `${category}`
+//             selectCategory.appendChild(option)
+//         })
+//     } 
+// }
+// for (let category in initialStorage.categories) {
+//     const option = document.createElement('option')
+//     option.setAttribute('value', `${category}`)
+//     option.setAttribute('id', `${category}`)
+//     option.textContent = `${category}`
+//     selectCategory.appendChild(option)
+// }
+// console.log(categories)
 //label "desde", fecha
 var labelDate = document.createElement('label');
 var textLabelDate = document.createTextNode('Desde');
@@ -201,7 +212,7 @@ a.setAttribute('href', './newOperation.html');
 var btn = document.createElement('button');
 btn.classList.add('btn', 'btn-primary');
 btn.setAttribute('id', 'btn-new-operation');
-var textBtn = document.createTextNode('+ Nueva operacion');
+var textBtn = document.createTextNode('+ Nueva operación');
 main.appendChild(divOperations);
 divOperations.appendChild(operationTitle);
 operationTitle.appendChild(operationTitleText);
