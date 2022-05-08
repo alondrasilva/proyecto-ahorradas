@@ -155,25 +155,42 @@ labelCategory.textContent = "Categorías"
 labelCategory.setAttribute('for', 'categories')
 const selectCategory = document.createElement('select')
 selectCategory.setAttribute('name', 'categories')
-selectCategory.setAttribute('id', 'categories')
+selectCategory.setAttribute('id', 'filter-categories')
 
 form.appendChild(labelCategory)
 form.appendChild(selectCategory)
 
-const categories = ['Comida', 'Educación', 'Transporte', 'Hola'] 
+// const categories = ['Comida', 'Educación']
 
-for (let category of categories) {
+// const createCategoryFilter = () => {
 
-    const option = document.createElement('option')
-    option.setAttribute('value', `${category}`)
-    option.setAttribute('id', `${category}`)
-    option.textContent = `${category}`
+//     if(JSON.parse(localStorage.getItem('ahorradas-data'))) {
+//         initialStorage.categories.forEach((category) => {
 
-    selectCategory.appendChild(option)
+//             console.log(category)
+//             const option = document.createElement('option')
+//             option.setAttribute('value', `${category}`)
+//             option.setAttribute('id', `${category}`)
+//             option.textContent = `${category}`
+        
+//             selectCategory.appendChild(option)
+//         })
+//     } 
+// }
 
-}
 
-console.log(categories)
+// for (let category in initialStorage.categories) {
+
+//     const option = document.createElement('option')
+//     option.setAttribute('value', `${category}`)
+//     option.setAttribute('id', `${category}`)
+//     option.textContent = `${category}`
+
+//     selectCategory.appendChild(option)
+
+// }
+
+// console.log(categories)
 
 //label "desde", fecha
 const labelDate = document.createElement('label')
@@ -270,7 +287,7 @@ a.setAttribute('href', './newOperation.html')
 const btn = document.createElement('button')
 btn.classList.add('btn', 'btn-primary')
 btn.setAttribute('id', 'btn-new-operation')
-const textBtn = document.createTextNode('+ Nueva operacion')
+const textBtn = document.createTextNode('+ Nueva operación')
 
 main.appendChild(divOperations)
 divOperations.appendChild(operationTitle)

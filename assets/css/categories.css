@@ -1,0 +1,26 @@
+.container {
+    background-color: white;
+    width: 60vw;
+}
+
+form label {
+    font-size: 20px;
+}
+
+.input-categories {
+    width: 100vw;
+    margin: 20px 0px 40px 0px;
+}
+
+.input-categories2 {
+    width: 88%;
+}
+
+input {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.category-item {
+    width: 100%;
+}

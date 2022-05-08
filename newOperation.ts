@@ -9,18 +9,18 @@ divNewOperations.classList.add('main', 'p-4', 'shadow-sm')
 body.appendChild(container)
 container.appendChild(divNewOperations)
 
-const h4 = document.createElement('h4')
-const textH4 = document.createTextNode('Nueva operacíon')
+const h2 = document.createElement('h2')
+const textH4 = document.createTextNode('Nueva operación')
 
-divNewOperations.appendChild(h4)
-h4.appendChild(textH4)
+divNewOperations.appendChild(h2)
+h2.appendChild(textH4)
 
 const form = document.createElement('form')
 form.classList.add('d-flex', 'flex-column')
 
 const labelDescription = document.createElement('label')
 labelDescription.setAttribute('for', 'description')
-labelDescription.textContent = "Descripcíon"
+labelDescription.textContent = "Descripción"
 
 const inputDescription = document.createElement('input')
 inputDescription.setAttribute('name', 'description')
