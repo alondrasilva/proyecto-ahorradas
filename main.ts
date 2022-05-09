@@ -92,15 +92,28 @@ const h4 = document.createElement('h4')
 const texth4 = document.createTextNode('Filtros')
 h4.classList.add('m-0')
 
-const p = document.createElement('p')
-p.classList.add('m-0')
-const textP = document.createTextNode('Ocultar filtros')
+
+const btnOcultarFiltros = document.createElement('button')
+btnOcultarFiltros.classList.add('btn', 'btn-light')
+const textBtnOcultarFiltros = document.createTextNode('Ocultar filtros')
+
+const btnMostrarFiltros = document.createElement('button')
+btnMostrarFiltros.classList.add('btn', 'btn-light', 'd-none')
+const textBtnMostrarFiltros = document.createTextNode('Mostrar filtros')
+
 
 divFilter.appendChild(filterTop)
 h4.appendChild(texth4)
-p.appendChild(textP)
 filterTop.appendChild(h4)
-filterTop.appendChild(p)
+filterTop.appendChild(btnOcultarFiltros)
+btnOcultarFiltros.appendChild(textBtnOcultarFiltros)
+filterTop.appendChild(btnMostrarFiltros)
+btnMostrarFiltros.appendChild(textBtnMostrarFiltros)
+
+
+
+
+
 
 
 // Comienzo form de la seccion filtros
@@ -155,25 +168,42 @@ labelCategory.textContent = "Categorías"
 labelCategory.setAttribute('for', 'categories')
 const selectCategory = document.createElement('select')
 selectCategory.setAttribute('name', 'categories')
-selectCategory.setAttribute('id', 'categories')
+selectCategory.setAttribute('id', 'filter-categories')
 
 form.appendChild(labelCategory)
 form.appendChild(selectCategory)
 
-const categories = ['Comida', 'Educación', 'Transporte', 'Hola'] 
+// const categories = ['Comida', 'Educación']
 
-for (let category of categories) {
+// const createCategoryFilter = () => {
 
-    const option = document.createElement('option')
-    option.setAttribute('value', `${category}`)
-    option.setAttribute('id', `${category}`)
-    option.textContent = `${category}`
+//     if(JSON.parse(localStorage.getItem('ahorradas-data'))) {
+//         initialStorage.categories.forEach((category) => {
 
-    selectCategory.appendChild(option)
+//             console.log(category)
+//             const option = document.createElement('option')
+//             option.setAttribute('value', `${category}`)
+//             option.setAttribute('id', `${category}`)
+//             option.textContent = `${category}`
+        
+//             selectCategory.appendChild(option)
+//         })
+//     } 
+// }
 
-}
 
-console.log(categories)
+// for (let category in initialStorage.categories) {
+
+//     const option = document.createElement('option')
+//     option.setAttribute('value', `${category}`)
+//     option.setAttribute('id', `${category}`)
+//     option.textContent = `${category}`
+
+//     selectCategory.appendChild(option)
+
+// }
+
+// console.log(categories)
 
 //label "desde", fecha
 const labelDate = document.createElement('label')
@@ -270,7 +300,7 @@ a.setAttribute('href', './newOperation.html')
 const btn = document.createElement('button')
 btn.classList.add('btn', 'btn-primary')
 btn.setAttribute('id', 'btn-new-operation')
-const textBtn = document.createTextNode('+ Nueva operacion')
+const textBtn = document.createTextNode('+ Nueva operación')
 
 main.appendChild(divOperations)
 divOperations.appendChild(operationTitle)
@@ -384,3 +414,43 @@ btnDeleteOp.textContent = "Eliminar"
 
 tdOperations5.appendChild(btnEditOp)
 tdOperations5.appendChild(btnDeleteOp)
+
+const inputCartegoryToAdd = document.getElementById('input-add-category')
+const buttonToAdd = document.getElementById('btn-add-category') 
+
+// Crear dinamicamente filtro de categorias
+// Preguntar a Adrian por qué no funciona
+// const selectCategory = document.getElementById('filter-categories')
+
+const createCategoryFilter = () => {
+
+    if(localStorage.getItem('ahorradas-data')) { 
+
+
+        initialStorage.categories.forEach((category) => {
+
+            const option = document.createElement('option')
+            option.setAttribute('value', `${category}`)
+            option.setAttribute('id', `${category}`)
+            option.textContent = `${category}`
+        
+            selectCategory.appendChild(option)
+        })
+    } 
+}
+
+createCategoryFilter()
+
+// Boton agregar y remover filtros
+
+btnOcultarFiltros.addEventListener('click', () => {
+    btnMostrarFiltros.classList.remove('d-none')
+    btnOcultarFiltros.classList.add('d-none')
+    form.classList.add('d-none')
+})
+
+btnMostrarFiltros.addEventListener('click', () => {
+    btnMostrarFiltros.classList.add('d-none')
+    btnOcultarFiltros.classList.remove('d-none')
+    form.classList.remove('d-none')
+})

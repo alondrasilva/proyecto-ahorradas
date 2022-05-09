@@ -1,3 +1,20 @@
+//LOCAL STORAGE//
+var initialStorage = {
+    categories: ["Comida", "Servicios", "Salidas", "Educación", "Transporte", "Trabajo"],
+    operations: []
+};
+var lStorage = localStorage.setItem('ahorradas-data', JSON.stringify(initialStorage));
+var getStorage = function () {
+    var lStor = JSON.parse(localStorage.getItem('ahorradas-data'));
+    // if(!lStor) {
+    //     lStor = {
+    //         categories: [],
+    //         operations: [] 
+    //     }
+    // } 
+    return lStor;
+};
+//Navbar
 var body = document.body;
 var header = document.createElement('header');
 var navbar = document.createElement('nav');
@@ -69,38 +86,3 @@ var navbarItemText3 = document.createTextNode('Reportes');
 navbarList.appendChild(navbarItem3);
 aNavbarItem3.appendChild(imgReports);
 aNavbarItem3.appendChild(navbarItemText3);
-var initialStorage = {
-    categories: ["Comida", "Transporte", "Educación"],
-    operations: []
-};
-var lStorage = localStorage.setItem('ahorradas-data', JSON.stringify(initialStorage));
-var hola = "Hola";
-var inputCartegoryToAdd = document.getElementById('input-add-category');
-var buttonToAdd = document.getElementById('btn-add-category');
-var oldData;
-var newData;
-buttonToAdd.addEventListener('click', function () {
-    addCategory();
-    console.log("".concat(inputCartegoryToAdd.value));
-}
-// if(localStorage.getItem('ahorradas-data')) {
-//     let oldData = JSON.parse(localStorage.getItem('ahorradas-data'))
-//     let newData = initialStorage.categories.push(`${inputCartegoryToAdd.value}`)
-//     // playlist.addSong = function addSong(cancion) { playlist.songs.push(cancion) }
-//     // let newData = initialStorage.categories.push("chuchu")
-//     localStorage.setItem('ahorradas-data', JSON.stringify(initialStorage))
-// }
-);
-function addCategory() {
-    if (localStorage.getItem('ahorradas-data')) {
-        var oldData_1 = JSON.parse(localStorage.getItem('ahorradas-data'));
-        var newData_1 = initialStorage.categories.push("Hola");
-        // playlist.addSong = function addSong(cancion) { playlist.songs.push(cancion) }
-        // let newData = initialStorage.categories.push("chuchu")
-        localStorage.setItem('ahorradas-data', JSON.stringify(initialStorage));
-    }
-}
-// addCategory()
-// }
-// addCategory()
-// initialStorage.categories.push("Hola")
