@@ -1,22 +1,29 @@
 //LOCAL STORAGE//
-var initialStorage = {
-    categories: [
-        {
-            "id": 1,
-            "name": "Comida"
-        },
-        {
-            "id": 2,
-            "name": "Entretenimiento"
-        },
-        {
-            "id": 3,
-            "name": "Transporte"
-        },
-    ],
-    operations: []
+//
+var loadStorageIfEmpty = function () {
+    var lStor = JSON.parse(localStorage.getItem('ahorradas-data'));
+    if (!lStor) {
+        lStor = {
+            categories: [{
+                    "id": 1,
+                    "name": "Comida"
+                },
+                {
+                    "id": 2,
+                    "name": "Entretenimiento"
+                },
+                {
+                    "id": 3,
+                    "name": "Transporte"
+                },
+            ],
+            operations: []
+        };
+    }
+    var lStorage = localStorage.setItem('ahorradas-data', JSON.stringify(lStor));
+    return lStorage;
 };
-var lStorage = localStorage.setItem('ahorradas-data', JSON.stringify(initialStorage));
+loadStorageIfEmpty();
 // const getStorage = (): LStorage => {
 //     let lStor = JSON.parse(localStorage.getItem('ahorradas-data'))
 //     if(!lStor) {

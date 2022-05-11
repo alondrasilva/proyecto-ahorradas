@@ -39,10 +39,10 @@ var categoriesList = document.createElement('div');
 // categories que estan en el localStorage y las agregue dinámicamente
 var tableCategories = document.createElement('table');
 tableCategories.classList.add('table', 'table-borderless');
+var tbodyCategories = document.createElement('tbody');
 divCategory.appendChild(tableCategories);
 // Cargas las categorías dinamicamente
 var loadCategories = function () {
-    var tbodyCategories = document.createElement('tbody');
     tbodyCategories.innerHTML = "";
     var ls_data = JSON.parse(localStorage.getItem('ahorradas-data'));
     ls_data.categories.forEach(function (category) {

@@ -56,14 +56,13 @@ const categoriesList = document.createElement('div')
 
 const tableCategories = document.createElement('table')
 tableCategories.classList.add('table', 'table-borderless')
+const tbodyCategories = document.createElement('tbody')
 
 divCategory.appendChild(tableCategories)
 
 // Cargas las categorías dinamicamente
 
 const loadCategories = () => {
-
-    const tbodyCategories = document.createElement('tbody')
 
     tbodyCategories.innerHTML = ""
 
