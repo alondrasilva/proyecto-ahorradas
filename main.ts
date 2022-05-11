@@ -173,37 +173,6 @@ selectCategory.setAttribute('id', 'filter-categories')
 form.appendChild(labelCategory)
 form.appendChild(selectCategory)
 
-// const categories = ['Comida', 'Educación']
-
-// const createCategoryFilter = () => {
-
-//     if(JSON.parse(localStorage.getItem('ahorradas-data'))) {
-//         initialStorage.categories.forEach((category) => {
-
-//             console.log(category)
-//             const option = document.createElement('option')
-//             option.setAttribute('value', `${category}`)
-//             option.setAttribute('id', `${category}`)
-//             option.textContent = `${category}`
-        
-//             selectCategory.appendChild(option)
-//         })
-//     } 
-// }
-
-
-// for (let category in initialStorage.categories) {
-
-//     const option = document.createElement('option')
-//     option.setAttribute('value', `${category}`)
-//     option.setAttribute('id', `${category}`)
-//     option.textContent = `${category}`
-
-//     selectCategory.appendChild(option)
-
-// }
-
-// console.log(categories)
 
 //label "desde", fecha
 const labelDate = document.createElement('label')
@@ -424,19 +393,27 @@ const buttonToAdd = document.getElementById('btn-add-category')
 
 const createCategoryFilter = () => {
 
-    if(localStorage.getItem('ahorradas-data')) { 
+    const ls_storage = JSON.parse(localStorage.getItem('ahorradas-data'))
 
 
-        initialStorage.categories.forEach((category) => {
+    ls_storage.categories.forEach(category => {
 
-            const option = document.createElement('option')
-            option.setAttribute('value', `${category}`)
-            option.setAttribute('id', `${category}`)
-            option.textContent = `${category}`
-        
-            selectCategory.appendChild(option)
-        })
-    } 
+        for(const prop in category) {
+
+            if(prop == "name") {
+
+                const option = document.createElement('option')
+                option.setAttribute('value', `${category.name}`)
+                option.setAttribute('id', `${category.name}`)
+                option.textContent = `${category.name}`
+                
+                selectCategory.appendChild(option)
+            }
+        }
+
+    }) 
+
+    localStorage.setItem('ahorradas-data', JSON.stringify(ls_storage))
 }
 
 createCategoryFilter()

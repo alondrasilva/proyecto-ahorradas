@@ -1,19 +1,32 @@
 //LOCAL STORAGE//
 var initialStorage = {
-    categories: ["Comida", "Servicios", "Salidas", "Educación", "Transporte", "Trabajo"],
+    categories: [
+        {
+            "id": 1,
+            "name": "Comida"
+        },
+        {
+            "id": 2,
+            "name": "Entretenimiento"
+        },
+        {
+            "id": 3,
+            "name": "Transporte"
+        },
+    ],
     operations: []
 };
 var lStorage = localStorage.setItem('ahorradas-data', JSON.stringify(initialStorage));
-var getStorage = function () {
-    var lStor = JSON.parse(localStorage.getItem('ahorradas-data'));
-    // if(!lStor) {
-    //     lStor = {
-    //         categories: [],
-    //         operations: [] 
-    //     }
-    // } 
-    return lStor;
-};
+// const getStorage = (): LStorage => {
+//     let lStor = JSON.parse(localStorage.getItem('ahorradas-data'))
+//     if(!lStor) {
+//         lStor = {
+//             categories: [],
+//             operations: [] 
+//         }
+//     } 
+//     return lStor
+// }
 //Navbar
 var body = document.body;
 var header = document.createElement('header');

@@ -17,6 +17,7 @@ h2.appendChild(textH2)
 
 const form = document.createElement('form')
 form.classList.add('d-flex')
+form.setAttribute('id', 'add-category')
 
 const div = document.createElement('div')
 div.classList.add('input-categories', 'd-flex', 'flex-row', 'justify-content-between', 'align-items-end')
@@ -34,6 +35,7 @@ const btn = document.createElement('button')
 btn.classList.add('btn', 'btn-primary')
 btn.setAttribute('id', 'btn-add-category')
 btn.textContent = "Agregar"
+btn.type = "submit"
 
 divCategory.appendChild(form)
 form.appendChild(div)
@@ -52,51 +54,77 @@ const categoriesList = document.createElement('div')
 // De acá hacia abajo hay meterlo en un for para que reconozca las 
 // categories que estan en el localStorage y las agregue dinámicamente
 
-const categoryItem = document.createElement('div')
-categoryItem.classList.add('d-flex', 'justify-content-between', 'category-item')
+const tableCategories = document.createElement('table')
+tableCategories.classList.add('table', 'table-borderless')
 
-const categoryName = document.createElement('p')
-const textCategoryName = document.createTextNode('Comida')
+divCategory.appendChild(tableCategories)
 
-const categoryButtons = document.createElement('div')
+// Cargas las categorías dinamicamente
 
-const btnEdit = document.createElement('button')
-btnEdit.classList.add('btn', 'btn-secondary', 'btn-sm', 'me-1')
-btnEdit.textContent = "Editar"
+const loadCategories = () => {
 
-const btnDelete = document.createElement('button')
-btnDelete.classList.add('btn', 'btn-secondary','btn-sm')
-btnDelete.textContent = "Eliminar"
+    const tbodyCategories = document.createElement('tbody')
 
-divCategory.appendChild(categoriesList)
-categoriesList.appendChild(categoryItem)
-categoryItem.appendChild(categoryName)
-categoryName.appendChild(textCategoryName)
-categoryItem.appendChild(categoryButtons)
-categoryButtons.appendChild(btnEdit)
-categoryButtons.appendChild(btnDelete)
+    tbodyCategories.innerHTML = ""
+
+    const ls_data = JSON.parse(localStorage.getItem('ahorradas-data'))
+
+    ls_data.categories.forEach(category => {
+
+        const tr = document.createElement('tr')
+
+        for(const prop in category) {
+
+            const td = document.createElement('td')
+
+            if(prop == "name") {
+
+                const tdbtn = document.createElement('td')
+                tdbtn.classList.add('text-end')
+                const btnEdit = document.createElement('button')
+                btnEdit.classList.add('btn', 'btn-secondary', 'btn-sm', 'me-1')
+                btnEdit.textContent = "Editar"
+
+                const btnDelete = document.createElement('button')
+                btnDelete.classList.add('btn', 'btn-secondary','btn-sm')
+                btnDelete.textContent = "Eliminar"
+
+                td.appendChild(document.createTextNode(category[prop]))
+                tr.appendChild(td)   
+                tr.appendChild(tdbtn)
+                tdbtn.appendChild(btnEdit)
+                tdbtn.appendChild(btnDelete)
+            }
+            
+        }
+        tableCategories.appendChild(tbodyCategories)
+        tbodyCategories.appendChild(tr)
+    })
+    
+}
+
+loadCategories()
+
+// Crear un nuevo ID para cada categoría nueva
 
 
 //Btn para agregar nueva categoria 
 
-
-btn.addEventListener('click', (e) => {
+form.addEventListener('submit', (e) => {
 
     e.preventDefault()
 
-    let prueba = JSON.parse(localStorage.getItem('ahorradas-data'))
-    
-    const addCategory = () => {
+    const ls_dataStorage = JSON.parse(localStorage.getItem('ahorradas-data'))
 
-        // if(localStorage.getItem('ahorradas-data')) {
-            // JSON.parse(localStorage.getItem('ahorradas-data'))
-            prueba.categories.push(`${input.value}`)
-            localStorage.setItem('ahorradas-data', JSON.stringify(prueba))
-            input.value = " "
+    // console.log(ls_dataStorage.categories)
 
-        // }
-        
-    }
-    addCategory()
+    ls_dataStorage.categories.push({
+        "id" : 6,
+        "name" : input.value})
+
+    localStorage.setItem('ahorradas-data', JSON.stringify(ls_dataStorage))
+
+    input.value = "" 
     
+    loadCategories()
 })

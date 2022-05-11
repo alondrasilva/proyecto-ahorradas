@@ -2,15 +2,17 @@
 //LOCAL STORAGE//
 
 type LStorage = {
-    categories: string[],
+    categories: Category[],
     operations: Object[]
 }
 
 type Category = {
+    id: number,
     name: string,
 }
 
 type Operation = {
+    id: number,
     description: string,
     category: Category,
     date: Date,
@@ -18,24 +20,39 @@ type Operation = {
 }
 
 const initialStorage: LStorage = {
-    categories: ["Comida", "Servicios", "Salidas", "Educación", "Transporte", "Trabajo"],
+    categories: [
+        {
+            "id" : 1,
+            "name" : "Comida"
+        },
+        {
+            "id" : 2,
+            "name" : "Entretenimiento"
+        },
+        {
+            "id" : 3,
+            "name" : "Transporte"
+        },
+    ],
+
     operations: []
 }
 
 const lStorage = localStorage.setItem('ahorradas-data', JSON.stringify(initialStorage))
 
-const getStorage = (): LStorage => {
+// const getStorage = (): LStorage => {
 
-    let lStor = JSON.parse(localStorage.getItem('ahorradas-data'))
+//     let lStor = JSON.parse(localStorage.getItem('ahorradas-data'))
 
-    // if(!lStor) {
-    //     lStor = {
-    //         categories: [],
-    //         operations: [] 
-    //     }
-    // } 
-    return lStor
-}
+//     if(!lStor) {
+//         lStor = {
+//             categories: [],
+//             operations: [] 
+//         }
+//     } 
+    
+//     return lStor
+// }
 
 
 
