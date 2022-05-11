@@ -173,37 +173,6 @@ selectCategory.setAttribute('id', 'filter-categories')
 form.appendChild(labelCategory)
 form.appendChild(selectCategory)
 
-// const categories = ['Comida', 'Educación']
-
-// const createCategoryFilter = () => {
-
-//     if(JSON.parse(localStorage.getItem('ahorradas-data'))) {
-//         initialStorage.categories.forEach((category) => {
-
-//             console.log(category)
-//             const option = document.createElement('option')
-//             option.setAttribute('value', `${category}`)
-//             option.setAttribute('id', `${category}`)
-//             option.textContent = `${category}`
-        
-//             selectCategory.appendChild(option)
-//         })
-//     } 
-// }
-
-
-// for (let category in initialStorage.categories) {
-
-//     const option = document.createElement('option')
-//     option.setAttribute('value', `${category}`)
-//     option.setAttribute('id', `${category}`)
-//     option.textContent = `${category}`
-
-//     selectCategory.appendChild(option)
-
-// }
-
-// console.log(categories)
 
 //label "desde", fecha
 const labelDate = document.createElement('label')
@@ -415,8 +384,11 @@ btnDeleteOp.textContent = "Eliminar"
 tdOperations5.appendChild(btnEditOp)
 tdOperations5.appendChild(btnDeleteOp)
 
-const inputCartegoryToAdd = document.getElementById('input-add-category')
-const buttonToAdd = document.getElementById('btn-add-category') 
+
+//Local Storage//
+
+// const inputCartegoryToAdd = document.getElementById('input-add-category')
+// const buttonToAdd = document.getElementById('btn-add-category') 
 
 // Crear dinamicamente filtro de categorias
 // Preguntar a Adrian por qué no funciona
