@@ -1,5 +1,6 @@
 //LOCAL STORAGE//
 <<<<<<< HEAD
+<<<<<<< HEAD
 //
 var loadStorageIfEmpty = function () {
     var lStor = JSON.parse(localStorage.getItem('ahorradas-data'));
@@ -55,6 +56,8 @@ loadStorageIfEmpty();
 //     } 
 //     return lStor
 // }
+=======
+>>>>>>> e145b945db2a76167a37108938cd50d0f9181bf0
 var loadStorageIfEmpty = function () {
     var lStor = JSON.parse(localStorage.getItem('ahorradas-data'));
     if (!lStor) {

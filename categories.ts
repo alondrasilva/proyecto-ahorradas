@@ -77,12 +77,14 @@ const loadCategories = () => {
     ls_data.categories.forEach(category => {
 
         const tr = document.createElement('tr')
+        tr.setAttribute('value', category.id)
 
         for(const prop in category) {
 
-            const td = document.createElement('td')
-
             if(prop == "name") {
+
+                const td = document.createElement('td')
+                td.setAttribute('value', `${category[prop]}`)
 
                 const tdbtn = document.createElement('td')
                 tdbtn.classList.add('text-end')
@@ -92,6 +94,7 @@ const loadCategories = () => {
 
                 const btnDelete = document.createElement('button')
                 btnDelete.classList.add('btn', 'btn-secondary','btn-sm')
+                btnDelete.setAttribute('value', `${category.id}`)
                 btnDelete.textContent = "Eliminar"
 
                 td.appendChild(document.createTextNode(category[prop]))
@@ -99,6 +102,27 @@ const loadCategories = () => {
                 tr.appendChild(tdbtn)
                 tdbtn.appendChild(btnEdit)
                 tdbtn.appendChild(btnDelete)
+                 
+
+                // Boton que elimina categorias en el local storage y en el documento
+                btnDelete.addEventListener('click', (e) => {
+
+                    const deleteCategory = (e) => {
+
+                       let lStorage = JSON.parse(localStorage.getItem('ahorradas-data'))
+                    
+                        console.log(e.target.value)
+
+                        let findIndex = lStorage.categories.findIndex(category => category.id == e.target.value)
+                        lStorage.categories.splice(findIndex, 1)
+
+                        localStorage.setItem('ahorradas-data', JSON.stringify(lStorage))
+                        loadCategories()
+
+                }
+                    
+                    deleteCategory(e)
+                })
             }
             
         }
@@ -109,6 +133,14 @@ const loadCategories = () => {
 }
 
 loadCategories()
+
+
+//Boton borrar categorias 
+
+
+
+
+
 
 // Crear un nuevo ID para cada categoría nueva
 
@@ -133,6 +165,4 @@ form.addEventListener('submit', (e) => {
     
     loadCategories()
 })
-
-// Armando el boton delete 
 
