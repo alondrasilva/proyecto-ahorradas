@@ -60,7 +60,6 @@ const tbodyCategories = document.createElement('tbody')
 
 divCategory.appendChild(tableCategories)
 
-const tbodyCategories = document.createElement('tbody')
 
 // Cargas las categorías dinamicamente
 
