@@ -67,6 +67,7 @@ var loadCategories = function () {
                 tr.appendChild(tdbtn);
                 tdbtn.appendChild(btnEdit);
                 tdbtn.appendChild(btnDelete);
+                // Boton que elimina categorias en el local storage y en el documento
                 btnDelete.addEventListener('click', function (e) {
                     var deleteCategory = function (e) {
                         var lStorage = JSON.parse(localStorage.getItem('ahorradas-data'));
