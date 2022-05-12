@@ -47,9 +47,11 @@ var loadCategories = function () {
     var ls_data = JSON.parse(localStorage.getItem('ahorradas-data'));
     ls_data.categories.forEach(function (category) {
         var tr = document.createElement('tr');
+        tr.setAttribute('value', category.id);
         for (var prop in category) {
-            var td = document.createElement('td');
             if (prop == "name") {
+                var td = document.createElement('td');
+                td.setAttribute('value', "".concat(category[prop]));
                 var tdbtn = document.createElement('td');
                 tdbtn.classList.add('text-end');
                 var btnEdit = document.createElement('button');
@@ -57,12 +59,24 @@ var loadCategories = function () {
                 btnEdit.textContent = "Editar";
                 var btnDelete = document.createElement('button');
                 btnDelete.classList.add('btn', 'btn-secondary', 'btn-sm');
+                btnDelete.setAttribute('value', "".concat(category.id));
                 btnDelete.textContent = "Eliminar";
                 td.appendChild(document.createTextNode(category[prop]));
                 tr.appendChild(td);
                 tr.appendChild(tdbtn);
                 tdbtn.appendChild(btnEdit);
                 tdbtn.appendChild(btnDelete);
+                btnDelete.addEventListener('click', function (e) {
+                    var deleteCategory = function (e) {
+                        var lStorage = JSON.parse(localStorage.getItem('ahorradas-data'));
+                        console.log(e.target.value);
+                        var findIndex = lStorage.categories.findIndex(function (category) { return category.id == e.target.value; });
+                        lStorage.categories.splice(findIndex, 1);
+                        localStorage.setItem('ahorradas-data', JSON.stringify(lStorage));
+                        loadCategories();
+                    };
+                    deleteCategory(e);
+                });
             }
         }
         tableCategories.appendChild(tbodyCategories);
@@ -70,6 +84,7 @@ var loadCategories = function () {
     });
 };
 loadCategories();
+//Boton borrar categorias 
 // Crear un nuevo ID para cada categoría nueva
 //Btn para agregar nueva categoria 
 form.addEventListener('submit', function (e) {
@@ -84,4 +99,3 @@ form.addEventListener('submit', function (e) {
     input.value = "";
     loadCategories();
 });
-// Armando el boton delete 
