@@ -11,20 +11,20 @@ divNewOperations.appendChild(h2);
 h2.appendChild(textH4);
 var form = document.createElement('form');
 form.classList.add('d-flex', 'flex-column');
+divNewOperations.appendChild(form);
 var labelDescription = document.createElement('label');
-labelDescription.setAttribute('for', 'description');
+labelDescription.setAttribute('for', "description");
 labelDescription.textContent = "Descripción";
 var inputDescription = document.createElement('input');
-inputDescription.setAttribute('name', 'description');
+inputDescription.setAttribute('for', 'description');
 inputDescription.setAttribute('id', 'description');
-divNewOperations.appendChild(form);
 form.appendChild(labelDescription);
 form.appendChild(inputDescription);
 var labelAmount = document.createElement('label');
-labelAmount.setAttribute('for', 'amount');
+labelAmount.setAttribute('for', "amount");
 labelAmount.textContent = "Monto";
 var inputAmount = document.createElement('input');
-inputAmount.setAttribute('name', 'amount');
+inputAmount.setAttribute('for', 'amount');
 inputAmount.setAttribute('id', 'amount');
 form.appendChild(labelAmount);
 form.appendChild(inputAmount);
@@ -84,9 +84,18 @@ var btnCancel = document.createElement('button');
 btnCancel.classList.add('btn', 'btn-primary', 'me-3', 'btn-light');
 btnCancel.textContent = 'Cancelar';
 var btnAdd = document.createElement('button');
+btnAdd.setAttribute('type', 'submit');
 btnAdd.classList.add('btn', 'btn-primary', 'active');
 btnAdd.textContent = 'Agregar';
-divNewOperations.appendChild(div);
+form.appendChild(div);
 div.appendChild(btnCancel);
 div.appendChild(btnAdd);
-// Crear nueva operación
+//Boton para agregar nueva operacion 
+form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'));
+    ls_Storage.operations.push({
+        descripcion: 'hola'
+    });
+    localStorage.setItem('ahorradas-data', JSON.stringify(ls_Storage));
+});

@@ -17,24 +17,25 @@ h2.appendChild(textH4)
 
 const form = document.createElement('form')
 form.classList.add('d-flex', 'flex-column')
+divNewOperations.appendChild(form)
 
 const labelDescription = document.createElement('label')
-labelDescription.setAttribute('for', 'description')
+labelDescription.setAttribute('for', `description`)
 labelDescription.textContent = "Descripción"
 
 const inputDescription = document.createElement('input')
-inputDescription.setAttribute('name', 'description')
+inputDescription.setAttribute('for', 'description')
 inputDescription.setAttribute('id', 'description')
 
-divNewOperations.appendChild(form)
 form.appendChild(labelDescription)
 form.appendChild(inputDescription)
 
 const labelAmount = document.createElement('label')
-labelAmount.setAttribute('for', 'amount')
+labelAmount.setAttribute('for', `amount`)
 labelAmount.textContent = "Monto"
+
 const inputAmount = document.createElement('input')
-inputAmount.setAttribute('name', 'amount')
+inputAmount.setAttribute('for', 'amount')
 inputAmount.setAttribute('id', 'amount')
 
 form.appendChild(labelAmount)
@@ -116,13 +117,31 @@ btnCancel.classList.add('btn', 'btn-primary', 'me-3', 'btn-light')
 btnCancel.textContent = 'Cancelar'
 
 const btnAdd = document.createElement('button')
+btnAdd.setAttribute('type', 'submit')
 btnAdd.classList.add('btn', 'btn-primary', 'active')
 btnAdd.textContent = 'Agregar'
 
-divNewOperations.appendChild(div)
+form.appendChild(div)
 div.appendChild(btnCancel)
 div.appendChild(btnAdd)
 
+//Boton para agregar nueva operacion 
 
-// Crear nueva operación
+form.addEventListener('submit', (e) => {
 
+    e.preventDefault()
+
+    const ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'))
+
+    ls_Storage.operations.push({
+        descripcion : 'hola',
+        // monto : e.target.amount.value,
+        // tipo : e.target.type.value,
+        // categoria : e.target.category.value,
+        // fecha : e.target.date.value
+
+    })
+
+    localStorage.setItem('ahorradas-data', JSON.stringify(ls_Storage))
+
+})

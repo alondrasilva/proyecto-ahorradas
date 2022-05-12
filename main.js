@@ -281,8 +281,9 @@ btnDeleteOp.classList.add('btn', 'btn-secondary', 'btn-sm');
 btnDeleteOp.textContent = "Eliminar";
 tdOperations5.appendChild(btnEditOp);
 tdOperations5.appendChild(btnDeleteOp);
-var inputCartegoryToAdd = document.getElementById('input-add-category');
-var buttonToAdd = document.getElementById('btn-add-category');
+//Local Storage//
+// const inputCartegoryToAdd = document.getElementById('input-add-category')
+// const buttonToAdd = document.getElementById('btn-add-category') 
 // Crear dinamicamente filtro de categorias
 // Preguntar a Adrian por qué no funciona
 // const selectCategory = document.getElementById('filter-categories')

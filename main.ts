@@ -384,8 +384,11 @@ btnDeleteOp.textContent = "Eliminar"
 tdOperations5.appendChild(btnEditOp)
 tdOperations5.appendChild(btnDeleteOp)
 
-const inputCartegoryToAdd = document.getElementById('input-add-category')
-const buttonToAdd = document.getElementById('btn-add-category') 
+
+//Local Storage//
+
+// const inputCartegoryToAdd = document.getElementById('input-add-category')
+// const buttonToAdd = document.getElementById('btn-add-category') 
 
 // Crear dinamicamente filtro de categorias
 // Preguntar a Adrian por qué no funciona

@@ -1,4 +1,5 @@
 //LOCAL STORAGE//
+<<<<<<< HEAD
 //
 var loadStorageIfEmpty = function () {
     var lStor = JSON.parse(localStorage.getItem('ahorradas-data'));
@@ -24,6 +25,26 @@ var loadStorageIfEmpty = function () {
     return lStorage;
 };
 loadStorageIfEmpty();
+=======
+// const initialStorage: LStorage = {
+//     categories: [
+//         {
+//             "id" : 1,
+//             "name" : "Comida"
+//         },
+//         {
+//             "id" : 2,
+//             "name" : "Entretenimiento"
+//         },
+//         {
+//             "id" : 3,
+//             "name" : "Transporte"
+//         },
+//     ],
+//     operations: []
+// }
+// const lStorage = localStorage.setItem('ahorradas-data', JSON.stringify(initialStorage))
+>>>>>>> ff1ee8cc101ad8f317e7bc1dec133deef4281395
 // const getStorage = (): LStorage => {
 //     let lStor = JSON.parse(localStorage.getItem('ahorradas-data'))
 //     if(!lStor) {
@@ -34,6 +55,42 @@ loadStorageIfEmpty();
 //     } 
 //     return lStor
 // }
+var loadStorageIfEmpty = function () {
+    var lStor = JSON.parse(localStorage.getItem('ahorradas-data'));
+    if (!lStor) {
+        lStor = {
+            categories: [{
+                    "id": 1,
+                    "name": "Servicios"
+                },
+                {
+                    "id": 2,
+                    "name": "Comidas"
+                },
+                {
+                    "id": 3,
+                    "name": "Salidas"
+                },
+                {
+                    "id": 4,
+                    "name": "Educacion"
+                },
+                {
+                    "id": 5,
+                    "name": "Transporte"
+                },
+                {
+                    "id": 6,
+                    "name": "Trabajo"
+                }
+            ],
+            operations: []
+        };
+    }
+    var lStorage = localStorage.setItem('ahorradas-data', JSON.stringify(lStor));
+    return lStorage;
+};
+loadStorageIfEmpty();
 //Navbar
 var body = document.body;
 var header = document.createElement('header');
