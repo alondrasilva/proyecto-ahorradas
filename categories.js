@@ -39,6 +39,7 @@ var categoriesList = document.createElement('div');
 // categories que estan en el localStorage y las agregue dinámicamente
 var tableCategories = document.createElement('table');
 tableCategories.classList.add('table', 'table-borderless');
+var tbodyCategories = document.createElement('tbody');
 divCategory.appendChild(tableCategories);
 var tbodyCategories = document.createElement('tbody');
 // Cargas las categorías dinamicamente
@@ -66,6 +67,7 @@ var loadCategories = function () {
                 tr.appendChild(tdbtn);
                 tdbtn.appendChild(btnEdit);
                 tdbtn.appendChild(btnDelete);
+                // Boton que elimina categorias en el local storage y en el documento
                 btnDelete.addEventListener('click', function (e) {
                     var deleteCategory = function (e) {
                         var lStorage = JSON.parse(localStorage.getItem('ahorradas-data'));
