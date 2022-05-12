@@ -66,10 +66,7 @@ const tbodyCategories = document.createElement('tbody')
 
 const loadCategories = () => {
 
-<<<<<<< HEAD
-=======
 
->>>>>>> ff1ee8cc101ad8f317e7bc1dec133deef4281395
     tbodyCategories.innerHTML = ""
 
     const ls_data = JSON.parse(localStorage.getItem('ahorradas-data'))
