@@ -2,43 +2,66 @@
 //LOCAL STORAGE//
 
 type LStorage = {
-    categories: string[],
+    categories: Category[],
     operations: Object[]
 }
 
 type Category = {
+    id: number,
     name: string,
 }
 
 type Operation = {
+    id: number,
     description: string,
     category: Category,
     date: Date,
     amount: number
 }
 
-const initialStorage: LStorage = {
-    categories: ["Comida", "Servicios", "Salidas", "Educación", "Transporte", "Trabajo"],
-    operations: []
-}
 
-const lStorage = localStorage.setItem('ahorradas-data', JSON.stringify(initialStorage))
-
-const getStorage = (): LStorage => {
+const loadStorageIfEmpty = () => {
 
     let lStor = JSON.parse(localStorage.getItem('ahorradas-data'))
 
-    // if(!lStor) {
-    //     lStor = {
-    //         categories: [],
-    //         operations: [] 
-    //     }
-    // } 
-    return lStor
+    if(!lStor) {
+
+        lStor = {
+                categories: [{
+                    "id" : 1,
+                    "name" : "Servicios"
+                },
+                {
+                    "id" : 2,
+                    "name" : "Comidas"
+                },
+                {
+                    "id" : 3,
+                    "name" : "Salidas"
+                },
+                {
+                    "id" : 4,
+                    "name" : "Educacion"
+                },
+                {
+                    "id" : 5,
+                    "name" : "Transporte"
+                },
+                {
+                    "id" : 6,
+                    "name" : "Trabajo"
+                }
+            ],
+                operations: [] 
+        }
+    } 
+    
+    const lStorage = localStorage.setItem('ahorradas-data', JSON.stringify(lStor))
+
+    return lStorage
 }
 
-
-
+loadStorageIfEmpty()
 
 //Navbar
 

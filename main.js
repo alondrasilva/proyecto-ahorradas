@@ -288,15 +288,19 @@ tdOperations5.appendChild(btnDeleteOp);
 // Preguntar a Adrian por qué no funciona
 // const selectCategory = document.getElementById('filter-categories')
 var createCategoryFilter = function () {
-    if (localStorage.getItem('ahorradas-data')) {
-        initialStorage.categories.forEach(function (category) {
-            var option = document.createElement('option');
-            option.setAttribute('value', "".concat(category));
-            option.setAttribute('id', "".concat(category));
-            option.textContent = "".concat(category);
-            selectCategory.appendChild(option);
-        });
-    }
+    var ls_storage = JSON.parse(localStorage.getItem('ahorradas-data'));
+    ls_storage.categories.forEach(function (category) {
+        for (var prop in category) {
+            if (prop == "name") {
+                var option = document.createElement('option');
+                option.setAttribute('value', "".concat(category.name));
+                option.setAttribute('id', "".concat(category.name));
+                option.textContent = "".concat(category.name);
+                selectCategory.appendChild(option);
+            }
+        }
+    });
+    localStorage.setItem('ahorradas-data', JSON.stringify(ls_storage));
 };
 createCategoryFilter();
 // Boton agregar y remover filtros
