@@ -41,7 +41,6 @@ var tableCategories = document.createElement('table');
 tableCategories.classList.add('table', 'table-borderless');
 var tbodyCategories = document.createElement('tbody');
 divCategory.appendChild(tableCategories);
-var tbodyCategories = document.createElement('tbody');
 // Cargas las categorías dinamicamente
 var loadCategories = function () {
     tbodyCategories.innerHTML = "";
