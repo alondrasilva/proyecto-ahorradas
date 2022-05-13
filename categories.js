@@ -70,7 +70,6 @@ var loadCategories = function () {
                 btnDelete.addEventListener('click', function (e) {
                     var deleteCategory = function (e) {
                         var lStorage = JSON.parse(localStorage.getItem('ahorradas-data'));
-                        console.log(e.target.value);
                         var findIndex = lStorage.categories.findIndex(function (category) { return category.id == e.target.value; });
                         lStorage.categories.splice(findIndex, 1);
                         localStorage.setItem('ahorradas-data', JSON.stringify(lStorage));
@@ -85,15 +84,23 @@ var loadCategories = function () {
     });
 };
 loadCategories();
-//Boton borrar categorias 
 // Crear un nuevo ID para cada categoría nueva
-//Btn para agregar nueva categoria 
+var createID = function () {
+    var lStor = JSON.parse(localStorage.getItem('ahorradas-data'));
+    var arrayId = lStor.categories.map(function (elem) {
+        return elem.id;
+    });
+    console.log(arrayId);
+    var lastId = Math.max.apply(Math, arrayId);
+    var newId = lastId + 1;
+    return newId;
+};
+//Btn para agregar nueva categoria y meterla en el local storage
 form.addEventListener('submit', function (e) {
     e.preventDefault();
     var ls_dataStorage = JSON.parse(localStorage.getItem('ahorradas-data'));
-    // console.log(ls_dataStorage.categories)
     ls_dataStorage.categories.push({
-        "id": 6,
+        "id": createID(),
         "name": input.value
     });
     localStorage.setItem('ahorradas-data', JSON.stringify(ls_dataStorage));

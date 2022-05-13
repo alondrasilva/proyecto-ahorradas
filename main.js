@@ -229,13 +229,15 @@ var trOperations = document.createElement('tr');
 var th1Operations = document.createElement('th');
 var textTh1Operations = document.createTextNode('Descripcion');
 var th2Operations = document.createElement('th');
-var textTh2Operations = document.createTextNode('Categoría');
+var textTh2Operations = document.createTextNode('Monto');
 var th3Operations = document.createElement('th');
-var textTh3Operations = document.createTextNode('Fecha');
+var textTh3Operations = document.createTextNode('Tipo');
 var th4Operations = document.createElement('th');
-var textTh4Operations = document.createTextNode('Monto');
+var textTh4Operations = document.createTextNode('Categoria');
 var th5Operations = document.createElement('th');
-var textTh5Operations = document.createTextNode('Acciones');
+var textTh5Operations = document.createTextNode('Fecha');
+var th6Operations = document.createElement('th');
+var textTh6Operations = document.createTextNode('Acciones');
 main.appendChild(divOperationsShow);
 divOperationsShow.appendChild(tableOperations);
 tableOperations.appendChild(theadOperations);
@@ -245,48 +247,58 @@ trOperations.appendChild(th2Operations);
 trOperations.appendChild(th3Operations);
 trOperations.appendChild(th4Operations);
 trOperations.appendChild(th5Operations);
+trOperations.appendChild(th6Operations);
 th1Operations.appendChild(textTh1Operations);
 th2Operations.appendChild(textTh2Operations);
 th3Operations.appendChild(textTh3Operations);
 th4Operations.appendChild(textTh4Operations);
 th5Operations.appendChild(textTh5Operations);
+th6Operations.appendChild(textTh6Operations);
 var tbodyOperations = document.createElement('tbody');
 tbodyOperations.setAttribute('id', 'table-body');
-var trOperations2 = document.createElement('tr');
-var tdOperations1 = document.createElement('td');
-var tdOperations2 = document.createElement('td');
-var tdOperations3 = document.createElement('td');
-var tdOperations4 = document.createElement('td');
-var tdOperations5 = document.createElement('td');
-var textTdOperations1 = document.createTextNode('Bebida');
-var textTdOperations2 = document.createTextNode('Bebida');
-var textTdOperations3 = document.createTextNode('2/5/2022');
-var textTdOperations4 = document.createTextNode('+45');
-tableOperations.appendChild(tbodyOperations);
-tbodyOperations.appendChild(trOperations2);
-trOperations2.appendChild(tdOperations1);
-trOperations2.appendChild(tdOperations2);
-trOperations2.appendChild(tdOperations3);
-trOperations2.appendChild(tdOperations4);
-trOperations2.appendChild(tdOperations5);
-tdOperations1.appendChild(textTdOperations1);
-tdOperations2.appendChild(textTdOperations2);
-tdOperations3.appendChild(textTdOperations3);
-tdOperations4.appendChild(textTdOperations4);
-var btnEditOp = document.createElement('button');
-btnEditOp.classList.add('btn', 'btn-secondary', 'btn-sm', 'me-1');
-btnEditOp.textContent = "Editar";
-var btnDeleteOp = document.createElement('button');
-btnDeleteOp.classList.add('btn', 'btn-secondary', 'btn-sm');
-btnDeleteOp.textContent = "Eliminar";
-tdOperations5.appendChild(btnEditOp);
-tdOperations5.appendChild(btnDeleteOp);
+var loadOperations = function () {
+    tbodyOperations.innerHTML = "";
+    var ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'));
+    ls_Storage.operations.forEach(function (operation) {
+        var tr = document.createElement('tr');
+        tr.setAttribute('value', operation.id);
+        for (var prop in operation) {
+            if (prop !== "id") {
+                var td = document.createElement('td');
+                td.setAttribute('value', "".concat(operation[prop]));
+                td.appendChild(document.createTextNode(operation[prop]));
+                tr.appendChild(td);
+            }
+        }
+        var tdBtn = document.createElement('td');
+        tdBtn.classList.add('text-end');
+        var btnEdit = document.createElement('button');
+        btnEdit.classList.add('btn', 'me-1');
+        btnEdit.textContent = "Editar";
+        var btnDelete = document.createElement('button');
+        btnDelete.classList.add('btn', 'me-1');
+        btnDelete.textContent = "Eliminar";
+        tr.appendChild(tdBtn);
+        tdBtn.appendChild(btnEdit);
+        tdBtn.appendChild(btnDelete);
+        tableOperations.appendChild(tbodyOperations);
+        tbodyOperations.appendChild(tr);
+        // Boton que elimina categorias en el local storage y en el documento
+        btnDelete.addEventListener('click', function (e) {
+            var deleteOperation = function (e) {
+                var lStorage = JSON.parse(localStorage.getItem('ahorradas-data'));
+                var findIndex = lStorage.operations.findIndex(function (operation) { return operation.id == e.target.value; });
+                lStorage.operations.splice(findIndex, 1);
+                localStorage.setItem('ahorradas-data', JSON.stringify(lStorage));
+                loadOperations();
+                showOrEmpty();
+            };
+            deleteOperation(e);
+        });
+    });
+};
+loadOperations();
 //Local Storage//
-// const inputCartegoryToAdd = document.getElementById('input-add-category')
-// const buttonToAdd = document.getElementById('btn-add-category') 
-// Crear dinamicamente filtro de categorias
-// Preguntar a Adrian por qué no funciona
-// const selectCategory = document.getElementById('filter-categories')
 var createCategoryFilter = function () {
     var ls_storage = JSON.parse(localStorage.getItem('ahorradas-data'));
     ls_storage.categories.forEach(function (category) {
@@ -314,3 +326,15 @@ btnMostrarFiltros.addEventListener('click', function () {
     btnOcultarFiltros.classList.remove('d-none');
     form.classList.remove('d-none');
 });
+var showOrEmpty = function () {
+    var ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'));
+    if (ls_Storage.operations.length == 0) {
+        tableOperations.classList.add('d-none');
+        divOperationsEmpty.classList.remove('d-none');
+    }
+    else if (ls_Storage.operations.length >= 1) {
+        divOperationsEmpty.classList.add('d-none');
+        tableOperations.classList.remove('d-none');
+    }
+};
+showOrEmpty();

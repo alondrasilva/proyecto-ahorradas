@@ -111,11 +111,6 @@ filterTop.appendChild(btnMostrarFiltros)
 btnMostrarFiltros.appendChild(textBtnMostrarFiltros)
 
 
-
-
-
-
-
 // Comienzo form de la seccion filtros
 
 const form = document.createElement('form')
@@ -315,16 +310,19 @@ const th1Operations = document.createElement('th')
 const textTh1Operations = document.createTextNode('Descripcion')
 
 const th2Operations = document.createElement('th')
-const textTh2Operations = document.createTextNode('Categoría')
+const textTh2Operations = document.createTextNode('Monto')
 
 const th3Operations = document.createElement('th')
-const textTh3Operations = document.createTextNode('Fecha')
+const textTh3Operations = document.createTextNode('Tipo')
 
 const th4Operations = document.createElement('th')
-const textTh4Operations = document.createTextNode('Monto')
+const textTh4Operations = document.createTextNode('Categoria')
 
 const th5Operations = document.createElement('th')
-const textTh5Operations = document.createTextNode('Acciones')
+const textTh5Operations = document.createTextNode('Fecha')
+
+const th6Operations = document.createElement('th')
+const textTh6Operations = document.createTextNode('Acciones')
 
 main.appendChild(divOperationsShow)
 
@@ -337,62 +335,89 @@ trOperations.appendChild(th2Operations)
 trOperations.appendChild(th3Operations)
 trOperations.appendChild(th4Operations)
 trOperations.appendChild(th5Operations)
+trOperations.appendChild(th6Operations)
 
 th1Operations.appendChild(textTh1Operations)
 th2Operations.appendChild(textTh2Operations)
 th3Operations.appendChild(textTh3Operations)
 th4Operations.appendChild(textTh4Operations)
 th5Operations.appendChild(textTh5Operations)
+th6Operations.appendChild(textTh6Operations)
 
 const tbodyOperations = document.createElement('tbody')
 tbodyOperations.setAttribute('id', 'table-body')
-const trOperations2 = document.createElement('tr')
 
-const tdOperations1 = document.createElement('td')
-const tdOperations2 = document.createElement('td')
-const tdOperations3 = document.createElement('td')
-const tdOperations4 = document.createElement('td')
-const tdOperations5 = document.createElement('td')
+const loadOperations = ()=> {
 
-const textTdOperations1 = document.createTextNode('Bebida')
-const textTdOperations2 = document.createTextNode('Bebida')
-const textTdOperations3 = document.createTextNode('2/5/2022')
-const textTdOperations4 = document.createTextNode('+45')
+    tbodyOperations.innerHTML = ""
 
-tableOperations.appendChild(tbodyOperations)
-tbodyOperations.appendChild(trOperations2)
+    const ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'))
 
-trOperations2.appendChild(tdOperations1)
-trOperations2.appendChild(tdOperations2)
-trOperations2.appendChild(tdOperations3)
-trOperations2.appendChild(tdOperations4)
-trOperations2.appendChild(tdOperations5)
+    ls_Storage.operations.forEach(operation => {
 
-tdOperations1.appendChild(textTdOperations1)
-tdOperations2.appendChild(textTdOperations2)
-tdOperations3.appendChild(textTdOperations3)
-tdOperations4.appendChild(textTdOperations4)
+        const tr = document.createElement('tr')
+        tr.setAttribute('value', operation.id)
 
-const btnEditOp = document.createElement('button')
-btnEditOp.classList.add('btn', 'btn-secondary', 'btn-sm', 'me-1')
-btnEditOp.textContent = "Editar"
+        for(const prop in operation) {
 
-const btnDeleteOp = document.createElement('button')
-btnDeleteOp.classList.add('btn', 'btn-secondary','btn-sm')
-btnDeleteOp.textContent = "Eliminar"
+            if(prop !== "id") {
+                const td = document.createElement('td')
+                td.setAttribute('value',`${operation[prop]}`)
+                
+                td.appendChild(document.createTextNode(operation[prop]))
+                tr.appendChild(td)
+            }
 
-tdOperations5.appendChild(btnEditOp)
-tdOperations5.appendChild(btnDeleteOp)
+        } 
+
+        const tdBtn = document.createElement('td')
+        tdBtn.classList.add('text-end')
+
+        const btnEdit = document.createElement('button')
+        btnEdit.classList.add('btn', 'me-1')
+        btnEdit.textContent = "Editar"
+
+        const btnDelete = document.createElement('button')
+        btnDelete.classList.add('btn', 'me-1')
+        btnDelete.textContent = "Eliminar"
+        
+        tr.appendChild(tdBtn)
+        tdBtn.appendChild(btnEdit)
+        tdBtn.appendChild(btnDelete)
+
+
+        tableOperations.appendChild(tbodyOperations)
+        tbodyOperations.appendChild(tr)
+
+        
+        // Boton que elimina categorias en el local storage y en el documento
+        btnDelete.addEventListener('click', (e) => {
+
+            const deleteOperation = (e) => {
+
+            let lStorage = JSON.parse(localStorage.getItem('ahorradas-data'))
+
+            let findIndex = lStorage.operations.findIndex(operation => operation.id == e.target.value)
+            lStorage.operations.splice(findIndex, 1)
+
+            localStorage.setItem('ahorradas-data', JSON.stringify(lStorage))
+            loadOperations()
+            showOrEmpty()
+
+            }
+                    
+            deleteOperation(e)
+        })
+    });
+
+}
+
+loadOperations()
+
+
 
 
 //Local Storage//
-
-// const inputCartegoryToAdd = document.getElementById('input-add-category')
-// const buttonToAdd = document.getElementById('btn-add-category') 
-
-// Crear dinamicamente filtro de categorias
-// Preguntar a Adrian por qué no funciona
-// const selectCategory = document.getElementById('filter-categories')
 
 const createCategoryFilter = () => {
 
@@ -434,3 +459,18 @@ btnMostrarFiltros.addEventListener('click', () => {
     btnOcultarFiltros.classList.remove('d-none')
     form.classList.remove('d-none')
 })
+
+const showOrEmpty = () => {
+    const ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'))
+    
+    if(ls_Storage.operations.length == 0) {
+        tableOperations.classList.add('d-none')
+        divOperationsEmpty.classList.remove('d-none')
+
+    } else if (ls_Storage.operations.length >= 1){
+        divOperationsEmpty.classList.add('d-none')
+        tableOperations.classList.remove('d-none')
+    }
+}
+
+showOrEmpty()

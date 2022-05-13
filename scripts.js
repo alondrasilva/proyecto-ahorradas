@@ -3,7 +3,9 @@ var loadStorageIfEmpty = function () {
     var lStor = JSON.parse(localStorage.getItem('ahorradas-data'));
     if (!lStor) {
         lStor = {
+
             categories: [{
+
                     "id": 1,
                     "name": "Servicios"
                 },
@@ -26,6 +28,14 @@ var loadStorageIfEmpty = function () {
                 {
                     "id": 6,
                     "name": "Trabajo"
+                }
+            ],
+            cuentas: [
+                {
+                    "gastos": []
+                },
+                {
+                    "ganancias": []
                 }
             ],
             operations: []
