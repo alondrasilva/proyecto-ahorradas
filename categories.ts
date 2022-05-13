@@ -104,8 +104,6 @@ const loadCategories = () => {
                     const deleteCategory = (e) => {
 
                        let lStorage = JSON.parse(localStorage.getItem('ahorradas-data'))
-                    
-                        console.log(e.target.value)
 
                         let findIndex = lStorage.categories.findIndex(category => category.id == e.target.value)
                         lStorage.categories.splice(findIndex, 1)
@@ -134,11 +132,12 @@ const createID = () => {
 
     let lStor = JSON.parse(localStorage.getItem('ahorradas-data'))
 
-    let arrayId = lStor.categories.map(category => {
+    let arrayId = lStor.categories.map(elem => {
         
-        return category.id
+        return elem.id
         
     })
+    console.log(arrayId)
 
     let lastId = Math.max(...arrayId)
 
@@ -149,7 +148,7 @@ const createID = () => {
 }
 
 
-//Btn para agregar nueva categoria 
+//Btn para agregar nueva categoria y meterla en el local storage
 
 form.addEventListener('submit', (e) => {
 

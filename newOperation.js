@@ -90,12 +90,29 @@ btnAdd.textContent = 'Agregar';
 form.appendChild(div);
 div.appendChild(btnCancel);
 div.appendChild(btnAdd);
-//Boton para agregar nueva operacion 
+// Crear un nuevo ID para cada categoría nueva
+var createIDOperations = function () {
+    var lStor = JSON.parse(localStorage.getItem('ahorradas-data'));
+    var arrayId = lStor.operations.map(function (elem) {
+        return elem.id;
+    });
+    console.log(arrayId);
+    var lastId = Math.max.apply(Math, arrayId);
+    var newId = lastId + 1;
+    return newId;
+};
+//Boton para agregar nueva operacion en el local storage 
 form.addEventListener('submit', function (e) {
     e.preventDefault();
     var ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'));
     ls_Storage.operations.push({
-        descripcion: 'hola'
+        "id": createIDOperations(),
+        "description": inputDescription.value,
+        "amount": inputAmount.value,
+        "type": selectType.value,
+        "category": selectCategory.value,
+        "date": inputDate.value
     });
     localStorage.setItem('ahorradas-data', JSON.stringify(ls_Storage));
+    loadOperations();
 });

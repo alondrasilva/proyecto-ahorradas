@@ -27,7 +27,8 @@ const loadStorageIfEmpty = () => {
     if(!lStor) {
 
         lStor = {
-                categories: [{
+                categories: [
+                {
                     "id" : 1,
                     "name" : "Servicios"
                 },
@@ -52,6 +53,15 @@ const loadStorageIfEmpty = () => {
                     "name" : "Trabajo"
                 }
             ],
+
+            cuentas: [
+                {
+                    "gastos": []
+                },
+                {
+                    "ganancias": []
+                }
+            ],    
                 operations: [] 
         }
     } 

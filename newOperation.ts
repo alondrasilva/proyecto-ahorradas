@@ -125,7 +125,29 @@ form.appendChild(div)
 div.appendChild(btnCancel)
 div.appendChild(btnAdd)
 
-//Boton para agregar nueva operacion 
+
+// Crear un nuevo ID para cada categoría nueva
+
+const createIDOperations = () => {
+
+    let lStor = JSON.parse(localStorage.getItem('ahorradas-data'))
+
+    let arrayId = lStor.operations.map(elem => {
+        
+        return elem.id
+        
+    })
+    console.log(arrayId)
+
+    let lastId = Math.max(...arrayId)
+
+    let newId = lastId + 1
+
+    return newId
+    
+}
+
+//Boton para agregar nueva operacion en el local storage 
 
 form.addEventListener('submit', (e) => {
 
@@ -134,14 +156,17 @@ form.addEventListener('submit', (e) => {
     const ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'))
 
     ls_Storage.operations.push({
-        descripcion : 'hola',
-        // monto : e.target.amount.value,
-        // tipo : e.target.type.value,
-        // categoria : e.target.category.value,
-        // fecha : e.target.date.value
+        "id" : createIDOperations(),
+        "description" : inputDescription.value,
+        "amount" : inputAmount.value,
+        "type" : selectType.value,
+        "category" : selectCategory.value,
+        "date" : inputDate.value
 
     })
-
+ 
     localStorage.setItem('ahorradas-data', JSON.stringify(ls_Storage))
-
+    loadOperations()
 })
+
+
