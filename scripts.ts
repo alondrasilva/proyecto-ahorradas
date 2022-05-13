@@ -27,8 +27,9 @@ const loadStorageIfEmpty = () => {
     if(!lStor) {
 
         lStor = {
-                categories: [
-                {
+
+                categories: [{
+
                     "id" : 1,
                     "name" : "Servicios"
                 },
@@ -72,7 +73,6 @@ const loadStorageIfEmpty = () => {
 }
 
 loadStorageIfEmpty()
-
 
 //Navbar
 

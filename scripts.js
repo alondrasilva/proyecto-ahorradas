@@ -3,8 +3,9 @@ var loadStorageIfEmpty = function () {
     var lStor = JSON.parse(localStorage.getItem('ahorradas-data'));
     if (!lStor) {
         lStor = {
-            categories: [
-                {
+
+            categories: [{
+
                     "id": 1,
                     "name": "Servicios"
                 },
