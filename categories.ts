@@ -128,15 +128,25 @@ const loadCategories = () => {
 
 loadCategories()
 
-
-//Boton borrar categorias 
-
-
-
-
-
-
 // Crear un nuevo ID para cada categoría nueva
+
+const createID = () => {
+
+    let lStor = JSON.parse(localStorage.getItem('ahorradas-data'))
+
+    let arrayId = lStor.categories.map(category => {
+        
+        return category.id
+        
+    })
+
+    let lastId = Math.max(...arrayId)
+
+    let newId = lastId + 1
+
+    return newId
+    
+}
 
 
 //Btn para agregar nueva categoria 
@@ -147,10 +157,8 @@ form.addEventListener('submit', (e) => {
 
     const ls_dataStorage = JSON.parse(localStorage.getItem('ahorradas-data'))
 
-    // console.log(ls_dataStorage.categories)
-
     ls_dataStorage.categories.push({
-        "id" : 6,
+        "id" : createID(),
         "name" : input.value})
 
     localStorage.setItem('ahorradas-data', JSON.stringify(ls_dataStorage))

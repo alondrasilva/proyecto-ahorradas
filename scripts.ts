@@ -20,10 +20,6 @@ type Operation = {
 }
 
 
-<<<<<<< HEAD
-//
-=======
->>>>>>> ff1ee8cc101ad8f317e7bc1dec133deef4281395
 const loadStorageIfEmpty = () => {
 
     let lStor = JSON.parse(localStorage.getItem('ahorradas-data'))
@@ -33,18 +29,6 @@ const loadStorageIfEmpty = () => {
         lStor = {
                 categories: [{
                     "id" : 1,
-<<<<<<< HEAD
-                    "name" : "Comida"
-                },
-                {
-                    "id" : 2,
-                    "name" : "Entretenimiento"
-                },
-                {
-                    "id" : 3,
-                    "name" : "Transporte"
-                },
-=======
                     "name" : "Servicios"
                 },
                 {
@@ -67,7 +51,6 @@ const loadStorageIfEmpty = () => {
                     "id" : 6,
                     "name" : "Trabajo"
                 }
->>>>>>> ff1ee8cc101ad8f317e7bc1dec133deef4281395
             ],
                 operations: [] 
         }
@@ -79,27 +62,7 @@ const loadStorageIfEmpty = () => {
 }
 
 loadStorageIfEmpty()
-<<<<<<< HEAD
 
-
-// const getStorage = (): LStorage => {
-
-//     let lStor = JSON.parse(localStorage.getItem('ahorradas-data'))
-
-//     if(!lStor) {
-//         lStor = {
-//             categories: [],
-//             operations: [] 
-//         }
-//     } 
-    
-//     return lStor
-// }
-
-
-
-=======
->>>>>>> ff1ee8cc101ad8f317e7bc1dec133deef4281395
 
 //Navbar
 

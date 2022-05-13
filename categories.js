@@ -85,15 +85,22 @@ var loadCategories = function () {
     });
 };
 loadCategories();
-//Boton borrar categorias 
 // Crear un nuevo ID para cada categoría nueva
+var createID = function () {
+    var lStor = JSON.parse(localStorage.getItem('ahorradas-data'));
+    var arrayId = lStor.categories.map(function (category) {
+        return category.id;
+    });
+    var lastId = Math.max.apply(Math, arrayId);
+    var newId = lastId + 1;
+    return newId;
+};
 //Btn para agregar nueva categoria 
 form.addEventListener('submit', function (e) {
     e.preventDefault();
     var ls_dataStorage = JSON.parse(localStorage.getItem('ahorradas-data'));
-    // console.log(ls_dataStorage.categories)
     ls_dataStorage.categories.push({
-        "id": 6,
+        "id": createID(),
         "name": input.value
     });
     localStorage.setItem('ahorradas-data', JSON.stringify(ls_dataStorage));
