@@ -60,8 +60,13 @@ const tbodyCategories = document.createElement('tbody')
 
 divCategory.appendChild(tableCategories)
 
+// Editar category oculto
+
+
+
 
 // Cargas las categorías dinamicamente
+// let valueCapturado
 
 const loadCategories = () => {
 
@@ -83,9 +88,12 @@ const loadCategories = () => {
 
                 const tdbtn = document.createElement('td')
                 tdbtn.classList.add('text-end')
-                const btnEdit = document.createElement('button')
-                btnEdit.classList.add('btn', 'btn-secondary', 'btn-sm', 'me-1')
-                btnEdit.textContent = "Editar"
+
+                const aEdit = document.createElement('a')
+                aEdit.classList.add('btn', 'btn-secondary', 'btn-sm', 'me-1')
+                aEdit.setAttribute('value', `${category.id}`)
+                aEdit.setAttribute('href', `./edit-categories.html?id=${category.id}`)
+                aEdit.textContent = "Editar"
 
                 const btnDelete = document.createElement('button')
                 btnDelete.classList.add('btn', 'btn-secondary','btn-sm')
@@ -95,7 +103,7 @@ const loadCategories = () => {
                 td.appendChild(document.createTextNode(category[prop]))
                 tr.appendChild(td)   
                 tr.appendChild(tdbtn)
-                tdbtn.appendChild(btnEdit)
+                tdbtn.appendChild(aEdit)
                 tdbtn.appendChild(btnDelete)
                  
 
@@ -109,13 +117,47 @@ const loadCategories = () => {
                         let findIndex = lStorage.categories.findIndex(category => category.id == e.target.value)
                         lStorage.categories.splice(findIndex, 1)
 
+                        // console.log(findIndex)
                         localStorage.setItem('ahorradas-data', JSON.stringify(lStorage))
                         loadCategories()
 
-                }
+                    }
                     
                     deleteCategory(e)
                 })
+
+                // Btn Editar categoría
+
+                // btnEdit.addEventListener('click', (e) => {
+
+                //     divEditCategory.classList.remove('d-none')
+                //     divCategory.classList.add('d-none')
+
+                //     const editarCategory = (e) => {
+
+                //         let lStorage = JSON.parse(localStorage.getItem('ahorradas-data'))
+                //         // let findIndex = lStorage.categories.findIndex(category => category.id == e.target.value)
+
+                //         // console.log(findIndex)
+
+                //         // Es mejor usar find
+                //         lStorage.categories.forEach(element => {
+
+                //             if(e.target.value == element.id) {
+
+                //                 inputEdit.value = element.name
+                //                 // let oldName = lStorage.categories.filter()
+                //                 console.log(`Entró en el id: ${element.id} y en el e.target.value: ${e.target.value}`)
+                //                 console.log(element.name)
+                            
+                //             //     valueCapturado = element.id
+                //             // // input.value = element.name.value
+                //             //     console.log(valueCapturado)
+                //             }                          
+                //         });
+                //     }
+                //     editarCategory(e)
+                // })
             }
             
         }
@@ -168,3 +210,41 @@ form.addEventListener('submit', (e) => {
     loadCategories()
 })
 
+// Btn para Cancelar la edición de la categoría y volver a la pantalla anterior
+
+btnCancelCategory.addEventListener('click', () => {
+
+    divEditCategory.classList.add('d-none')
+    divCategory.classList.remove('d-none')
+
+
+})
+
+// Btn para Editar el nombre de la categoría y volver a la pantalla anterior
+
+
+
+// btnEditCategory.addEventListener('click', (e) => {
+
+//      const editCategoryName = (e) => {
+
+//         let lStorage = JSON.parse(localStorage.getItem('ahorradas-data'))
+
+// //        const form = e.target
+//         const newCategoryName = inputEdit.value
+//         console.log(newCategoryName)
+//         console.log(e.target.value)
+//         console.log(e.target)
+// //         // let findIndex = lStorage.categories.findIndex(category => category.id == e.target.value)
+//         // console.log(valueCapturado)
+//          lStorage.categories.forEach(element => {
+
+//          })
+
+//         localStorage.setItem('ahorradas-data', JSON.stringify(lStorage))
+// //         // loadCategories()
+
+//      }
+    
+//     editCategoryName(e)
+// })
