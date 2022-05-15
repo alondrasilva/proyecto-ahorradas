@@ -18,8 +18,6 @@ const operations: Operation[] = [{
 
 const mostrarOperaciones = () => {
 
-
-
 }
 
 const btnNewOperation = document.getElementById('btn-new-operation')
