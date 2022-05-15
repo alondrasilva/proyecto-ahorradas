@@ -73,7 +73,6 @@ const loadStorageIfEmpty = () => {
 
 loadStorageIfEmpty()
 
-
 //Navbar
 
 const body = document.body

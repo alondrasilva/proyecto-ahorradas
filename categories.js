@@ -41,7 +41,9 @@ var tableCategories = document.createElement('table');
 tableCategories.classList.add('table', 'table-borderless');
 var tbodyCategories = document.createElement('tbody');
 divCategory.appendChild(tableCategories);
+// Editar category oculto
 // Cargas las categorías dinamicamente
+// let valueCapturado
 var loadCategories = function () {
     tbodyCategories.innerHTML = "";
     var ls_data = JSON.parse(localStorage.getItem('ahorradas-data'));
@@ -54,9 +56,11 @@ var loadCategories = function () {
                 td.setAttribute('value', "".concat(category[prop]));
                 var tdbtn = document.createElement('td');
                 tdbtn.classList.add('text-end');
-                var btnEdit = document.createElement('button');
-                btnEdit.classList.add('btn', 'btn-secondary', 'btn-sm', 'me-1');
-                btnEdit.textContent = "Editar";
+                var aEdit = document.createElement('a');
+                aEdit.classList.add('btn', 'btn-secondary', 'btn-sm', 'me-1');
+                aEdit.setAttribute('value', "".concat(category.id));
+                aEdit.setAttribute('href', "./edit-categories.html?id=".concat(category.id));
+                aEdit.textContent = "Editar";
                 var btnDelete = document.createElement('button');
                 btnDelete.classList.add('btn', 'btn-secondary', 'btn-sm');
                 btnDelete.setAttribute('value', "".concat(category.id));
@@ -64,7 +68,7 @@ var loadCategories = function () {
                 td.appendChild(document.createTextNode(category[prop]));
                 tr.appendChild(td);
                 tr.appendChild(tdbtn);
-                tdbtn.appendChild(btnEdit);
+                tdbtn.appendChild(aEdit);
                 tdbtn.appendChild(btnDelete);
                 // Boton que elimina categorias en el local storage y en el documento
                 btnDelete.addEventListener('click', function (e) {
@@ -72,11 +76,35 @@ var loadCategories = function () {
                         var lStorage = JSON.parse(localStorage.getItem('ahorradas-data'));
                         var findIndex = lStorage.categories.findIndex(function (category) { return category.id == e.target.value; });
                         lStorage.categories.splice(findIndex, 1);
+                        // console.log(findIndex)
                         localStorage.setItem('ahorradas-data', JSON.stringify(lStorage));
                         loadCategories();
                     };
                     deleteCategory(e);
                 });
+                // Btn Editar categoría
+                // btnEdit.addEventListener('click', (e) => {
+                //     divEditCategory.classList.remove('d-none')
+                //     divCategory.classList.add('d-none')
+                //     const editarCategory = (e) => {
+                //         let lStorage = JSON.parse(localStorage.getItem('ahorradas-data'))
+                //         // let findIndex = lStorage.categories.findIndex(category => category.id == e.target.value)
+                //         // console.log(findIndex)
+                //         // Es mejor usar find
+                //         lStorage.categories.forEach(element => {
+                //             if(e.target.value == element.id) {
+                //                 inputEdit.value = element.name
+                //                 // let oldName = lStorage.categories.filter()
+                //                 console.log(`Entró en el id: ${element.id} y en el e.target.value: ${e.target.value}`)
+                //                 console.log(element.name)
+                //             //     valueCapturado = element.id
+                //             // // input.value = element.name.value
+                //             //     console.log(valueCapturado)
+                //             }                          
+                //         });
+                //     }
+                //     editarCategory(e)
+                // })
             }
         }
         tableCategories.appendChild(tbodyCategories);
@@ -107,3 +135,26 @@ form.addEventListener('submit', function (e) {
     input.value = "";
     loadCategories();
 });
+// Btn para Cancelar la edición de la categoría y volver a la pantalla anterior
+btnCancelCategory.addEventListener('click', function () {
+    divEditCategory.classList.add('d-none');
+    divCategory.classList.remove('d-none');
+});
+// Btn para Editar el nombre de la categoría y volver a la pantalla anterior
+// btnEditCategory.addEventListener('click', (e) => {
+//      const editCategoryName = (e) => {
+//         let lStorage = JSON.parse(localStorage.getItem('ahorradas-data'))
+// //        const form = e.target
+//         const newCategoryName = inputEdit.value
+//         console.log(newCategoryName)
+//         console.log(e.target.value)
+//         console.log(e.target)
+// //         // let findIndex = lStorage.categories.findIndex(category => category.id == e.target.value)
+//         // console.log(valueCapturado)
+//          lStorage.categories.forEach(element => {
+//          })
+//         localStorage.setItem('ahorradas-data', JSON.stringify(lStorage))
+// //         // loadCategories()
+//      }
+//     editCategoryName(e)
+// })

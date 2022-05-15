@@ -227,30 +227,31 @@ tableOperations.setAttribute('id', 'table-operations');
 var theadOperations = document.createElement('thead');
 var trOperations = document.createElement('tr');
 var th1Operations = document.createElement('th');
-var textTh1Operations = document.createTextNode('Descripcion');
+var textTh1Operations = document.createTextNode('Descripción');
 var th2Operations = document.createElement('th');
 var textTh2Operations = document.createTextNode('Monto');
-var th3Operations = document.createElement('th');
-var textTh3Operations = document.createTextNode('Tipo');
+// const th3Operations = document.createElement('th')
+// const textTh3Operations = document.createTextNode('Tipo')
 var th4Operations = document.createElement('th');
-var textTh4Operations = document.createTextNode('Categoria');
+var textTh4Operations = document.createTextNode('Categoría');
 var th5Operations = document.createElement('th');
 var textTh5Operations = document.createTextNode('Fecha');
 var th6Operations = document.createElement('th');
 var textTh6Operations = document.createTextNode('Acciones');
+th6Operations.classList.add('text-center');
 main.appendChild(divOperationsShow);
 divOperationsShow.appendChild(tableOperations);
 tableOperations.appendChild(theadOperations);
 theadOperations.appendChild(trOperations);
 trOperations.appendChild(th1Operations);
 trOperations.appendChild(th2Operations);
-trOperations.appendChild(th3Operations);
+// trOperations.appendChild(th3Operations)
 trOperations.appendChild(th4Operations);
 trOperations.appendChild(th5Operations);
 trOperations.appendChild(th6Operations);
 th1Operations.appendChild(textTh1Operations);
 th2Operations.appendChild(textTh2Operations);
-th3Operations.appendChild(textTh3Operations);
+// th3Operations.appendChild(textTh3Operations)
 th4Operations.appendChild(textTh4Operations);
 th5Operations.appendChild(textTh5Operations);
 th6Operations.appendChild(textTh6Operations);
@@ -264,10 +265,12 @@ var loadOperations = function () {
         tr.setAttribute('value', operation.id);
         for (var prop in operation) {
             if (prop !== "id") {
-                var td = document.createElement('td');
-                td.setAttribute('value', "".concat(operation[prop]));
-                td.appendChild(document.createTextNode(operation[prop]));
-                tr.appendChild(td);
+                if (prop !== "type") {
+                    var td = document.createElement('td');
+                    td.setAttribute('value', "".concat(operation[prop]));
+                    td.appendChild(document.createTextNode(operation[prop]));
+                    tr.appendChild(td);
+                }
             }
         }
         var tdBtn = document.createElement('td');

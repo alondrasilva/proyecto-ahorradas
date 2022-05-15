@@ -26,6 +26,7 @@ labelDescription.textContent = "Descripción"
 const inputDescription = document.createElement('input')
 inputDescription.setAttribute('for', 'description')
 inputDescription.setAttribute('id', 'description')
+inputDescription.setAttribute('required', 'true')
 
 form.appendChild(labelDescription)
 form.appendChild(inputDescription)
@@ -37,6 +38,7 @@ labelAmount.textContent = "Monto"
 const inputAmount = document.createElement('input')
 inputAmount.setAttribute('for', 'amount')
 inputAmount.setAttribute('id', 'amount')
+inputAmount.setAttribute('required', 'true')
 
 form.appendChild(labelAmount)
 form.appendChild(inputAmount)
@@ -112,18 +114,24 @@ form.appendChild(inputDate)
 const div = document.createElement('div')
 div.classList.add('d-flex', 'justify-content-end', 'mt-5')
 
+const aBtnCancel = document.createElement('a')
+aBtnCancel.setAttribute('href', './index.html')
 const btnCancel = document.createElement('button')
 btnCancel.classList.add('btn', 'btn-primary', 'me-3', 'btn-light')
 btnCancel.textContent = 'Cancelar'
 
+const aBtnAdd = document.createElement('a')
+aBtnAdd.setAttribute('href', './index.html')
 const btnAdd = document.createElement('button')
 btnAdd.setAttribute('type', 'submit')
 btnAdd.classList.add('btn', 'btn-primary', 'active')
 btnAdd.textContent = 'Agregar'
 
 form.appendChild(div)
-div.appendChild(btnCancel)
-div.appendChild(btnAdd)
+div.appendChild(aBtnCancel)
+aBtnCancel.appendChild(btnCancel)
+div.appendChild(aBtnAdd)
+aBtnAdd.appendChild(btnAdd)
 
 
 // Crear un nuevo ID para cada categoría nueva
