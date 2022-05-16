@@ -124,7 +124,7 @@ const aBtnAdd = document.createElement('a')
 aBtnAdd.setAttribute('href', './index.html')
 const btnAdd = document.createElement('button')
 btnAdd.setAttribute('type', 'submit')
-btnAdd.classList.add('btn', 'btn-primary', 'active')
+btnAdd.classList.add('btn', 'btn-primary')
 btnAdd.textContent = 'Agregar'
 
 form.appendChild(div)

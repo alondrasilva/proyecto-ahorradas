@@ -1,16 +1,16 @@
 const body = document.body
 
 const container = document.createElement('div')
-container.classList.add('wrapper','container', 'my-5')
+container.classList.add('wrapper','container-fluid','container', 'my-5')
 
 const rowContainer = document.createElement('div')
-rowContainer.classList.add('row', 'd-flex')
+rowContainer.classList.add('row','container-fluid','d-flex')
 
 const aside = document.createElement('div')
-aside.classList.add('aside', 'col-4')
+aside.classList.add('aside', 'container-fluid','col-4')
 
 const main = document.createElement('div')
-main.classList.add('main','col-8', 'p-4', 'shadow-sm')
+main.classList.add('main','container-fluid','col-8', 'p-4', 'shadow-sm')
 
 body.appendChild(container)
 container.appendChild(rowContainer)
@@ -277,10 +277,6 @@ btn.appendChild(textBtn)
 const divOperationsEmpty = document.createElement('div')
 divOperationsEmpty.classList.add('d-flex', 'flex-column', 'justify-content-center', 'align-items-center', 'margin-top')
 
-const imgEmpty = document.createElement('img')
-imgEmpty.setAttribute('src', './assets/images/cash_left.png')
-imgEmpty.setAttribute('width', '390px')
-
 const pEmpty = document.createElement('p')
 pEmpty.classList.add('fs-3')
 const textPEmpty = document.createTextNode('Sin resultados')
@@ -288,12 +284,16 @@ const textPEmpty = document.createTextNode('Sin resultados')
 const pEmpty2 = document.createElement('p')
 const textPEmpty2 = document.createTextNode('Cambia los filtros o agreaga operaciones')
 
+const imgEmpty = document.createElement('img')
+imgEmpty.classList.add('img')
+imgEmpty.setAttribute('src', './assets/images/moneys.jpeg')
+
 main.appendChild(divOperationsEmpty)
 
-divOperationsEmpty.appendChild(imgEmpty)
 divOperationsEmpty.appendChild(pEmpty)
-pEmpty.appendChild(textPEmpty)
 divOperationsEmpty.appendChild(pEmpty2)
+divOperationsEmpty.appendChild(imgEmpty)
+pEmpty.appendChild(textPEmpty)
 pEmpty2.appendChild(textPEmpty2)
 
 const divOperationsShow = document.createElement('div')

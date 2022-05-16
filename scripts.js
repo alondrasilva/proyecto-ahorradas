@@ -3,9 +3,7 @@ var loadStorageIfEmpty = function () {
     var lStor = JSON.parse(localStorage.getItem('ahorradas-data'));
     if (!lStor) {
         lStor = {
-
             categories: [{
-
                     "id": 1,
                     "name": "Servicios"
                 },
@@ -60,7 +58,7 @@ var aNavbarLogo = document.createElement('a');
 aNavbarLogo.setAttribute('href', 'index.html');
 aNavbarLogo.classList.add('nav-link', 'navbar-brand', "title");
 var imgNavbar = document.createElement('img');
-imgNavbar.setAttribute('src', './assets/images/wallet-solid.png');
+imgNavbar.setAttribute('src', './assets/images/logo-ahorradas.png');
 imgNavbar.setAttribute('alt', 'Navbar Logo');
 imgNavbar.setAttribute('width', '60');
 var titleNavbar = document.createTextNode('AhorrADAs');
