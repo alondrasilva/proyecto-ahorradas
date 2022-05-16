@@ -275,14 +275,18 @@ var loadOperations = function () {
         }
         var tdBtn = document.createElement('td');
         tdBtn.classList.add('text-end');
+        var aBtnEditCategory = document.createElement('a');
+        aBtnEditCategory.setAttribute('href', "./edit-operations.html?id=".concat(operation.id));
         var btnEdit = document.createElement('button');
+        btnEdit.setAttribute('id', 'btn-edit-category');
         btnEdit.classList.add('btn', 'me-1');
         btnEdit.textContent = "Editar";
         var btnDelete = document.createElement('button');
         btnDelete.classList.add('btn', 'me-1');
         btnDelete.textContent = "Eliminar";
         tr.appendChild(tdBtn);
-        tdBtn.appendChild(btnEdit);
+        tdBtn.appendChild(aBtnEditCategory);
+        aBtnEditCategory.appendChild(btnEdit);
         tdBtn.appendChild(btnDelete);
         tableOperations.appendChild(tbodyOperations);
         tbodyOperations.appendChild(tr);

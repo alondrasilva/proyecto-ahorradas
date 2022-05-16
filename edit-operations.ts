@@ -10,7 +10,7 @@ body.appendChild(container)
 container.appendChild(divNewOperations)
 
 const h2 = document.createElement('h2')
-const textH4 = document.createTextNode('Nueva operación')
+const textH4 = document.createTextNode('Editar operación')
 
 divNewOperations.appendChild(h2)
 h2.appendChild(textH4)
@@ -26,7 +26,7 @@ labelDescription.textContent = "Descripción"
 const inputDescription = document.createElement('input')
 inputDescription.setAttribute('for', 'description')
 inputDescription.setAttribute('id', 'description')
-// inputDescription.setAttribute('required', 'true')
+inputDescription.setAttribute('required', 'true')
 
 form.appendChild(labelDescription)
 form.appendChild(inputDescription)
@@ -38,7 +38,7 @@ labelAmount.textContent = "Monto"
 const inputAmount = document.createElement('input')
 inputAmount.setAttribute('for', 'amount')
 inputAmount.setAttribute('id', 'amount')
-// inputAmount.setAttribute('required', 'true')
+inputAmount.setAttribute('required', 'true')
 
 form.appendChild(labelAmount)
 form.appendChild(inputAmount)
@@ -70,33 +70,9 @@ const selectCategory = document.createElement('select')
 selectCategory.setAttribute('name', 'category')
 selectCategory.setAttribute('id', 'category')
 
+
 form.appendChild(labelCategory)
 form.appendChild(selectCategory)
-
-const createCategoryFilter = () => {
-
-    const ls_storage = JSON.parse(localStorage.getItem('ahorradas-data'))
-
-
-    ls_storage.categories.forEach(category => {
-
-        for(const prop in category) {
-
-            if(prop == "name") {
-
-                const option = document.createElement('option')
-                option.setAttribute('value', `${category.name}`)
-                option.setAttribute('id', `${category.name}`)
-                option.textContent = `${category.name}`
-                
-                selectCategory.appendChild(option)
-            }
-        }
-
-    }) 
-}
-
-createCategoryFilter()
 
 const date = document.createElement('label')
 date.textContent = "Fecha"
@@ -133,46 +109,49 @@ aBtnCancel.appendChild(btnCancel)
 div.appendChild(aBtnAdd)
 aBtnAdd.appendChild(btnAdd)
 
+// Traerme los datos de la operación mediante params para modificarlos y reescribirlos
 
-// Crear un nuevo ID para cada categoría nueva
+const params = new URLSearchParams(window.location.search)
 
-const createIDOperations = () => {
+const id = params.get('id')
 
-    let lStor = JSON.parse(localStorage.getItem('ahorradas-data'))
+const storage = JSON.parse(localStorage.getItem('ahorradas-data'))
 
-    let arrayId = lStor.operations.map(elem => {
-        
-        return elem.id
-        
-    })
-    console.log(arrayId)
+const item = storage.operations.find(item => item.id == id)
 
-    let lastId = Math.max(...arrayId)
+inputDescription.value = item.description
+inputAmount.value = item.amount
+selectType.value = item.type
+selectCategory.value = item.category
+inputDate.value = item.date
 
-    let newId = lastId + 1
-
-    return newId
-    
-}
-
-//Boton para agregar nueva operacion en el local storage 
+console.log(item)
 
 form.addEventListener('submit', (e) => {
-
     e.preventDefault()
 
-    const ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'))
+    const storage = JSON.parse(localStorage.getItem('ahorradas-data'))
 
-    ls_Storage.operations.push({
-        "id" : createIDOperations(),
+    const payload = {
+        "id" : item.id,
         "description" : inputDescription.value,
-        "amount" : inputAmount.value,
         "type" : selectType.value,
-        "category" : selectCategory.value,
+        "category" : selectCategory.value, // No me trae las categorías, puede ser porque se crean por defecto dependiendo de las que estan creadas
         "date" : inputDate.value
+    }
+    console.log(payload)
 
+    const newItems = storage.operations.map(item => {
+        if(item.id == id) {
+            return payload
+        }
+        return item
     })
- 
-    localStorage.setItem('ahorradas-data', JSON.stringify(ls_Storage))
-    loadOperations()
+    
+
+    localStorage.setItem('ahorradas-data', JSON.stringify({
+        ...storage,
+        operations: newItems,
+    }))
+
 })

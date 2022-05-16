@@ -379,7 +379,10 @@ const loadOperations = ()=> {
         const tdBtn = document.createElement('td')
         tdBtn.classList.add('text-end')
 
+        const aBtnEditCategory = document.createElement('a')
+        aBtnEditCategory.setAttribute('href', `./edit-operations.html?id=${operation.id}`)
         const btnEdit = document.createElement('button')
+        btnEdit.setAttribute('id', 'btn-edit-category')
         btnEdit.classList.add('btn', 'me-1')
         btnEdit.textContent = "Editar"
 
@@ -388,7 +391,8 @@ const loadOperations = ()=> {
         btnDelete.textContent = "Eliminar"
         
         tr.appendChild(tdBtn)
-        tdBtn.appendChild(btnEdit)
+        tdBtn.appendChild(aBtnEditCategory)
+        aBtnEditCategory.appendChild(btnEdit)
         tdBtn.appendChild(btnDelete)
 
 
@@ -480,3 +484,4 @@ const showOrEmpty = () => {
 }
 
 showOrEmpty()
+

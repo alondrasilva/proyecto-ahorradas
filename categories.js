@@ -70,6 +70,7 @@ var loadCategories = function () {
                 tr.appendChild(tdbtn);
                 tdbtn.appendChild(aEdit);
                 tdbtn.appendChild(btnDelete);
+                3;
                 // Boton que elimina categorias en el local storage y en el documento
                 btnDelete.addEventListener('click', function (e) {
                     var deleteCategory = function (e) {
@@ -82,29 +83,6 @@ var loadCategories = function () {
                     };
                     deleteCategory(e);
                 });
-                // Btn Editar categoría
-                // btnEdit.addEventListener('click', (e) => {
-                //     divEditCategory.classList.remove('d-none')
-                //     divCategory.classList.add('d-none')
-                //     const editarCategory = (e) => {
-                //         let lStorage = JSON.parse(localStorage.getItem('ahorradas-data'))
-                //         // let findIndex = lStorage.categories.findIndex(category => category.id == e.target.value)
-                //         // console.log(findIndex)
-                //         // Es mejor usar find
-                //         lStorage.categories.forEach(element => {
-                //             if(e.target.value == element.id) {
-                //                 inputEdit.value = element.name
-                //                 // let oldName = lStorage.categories.filter()
-                //                 console.log(`Entró en el id: ${element.id} y en el e.target.value: ${e.target.value}`)
-                //                 console.log(element.name)
-                //             //     valueCapturado = element.id
-                //             // // input.value = element.name.value
-                //             //     console.log(valueCapturado)
-                //             }                          
-                //         });
-                //     }
-                //     editarCategory(e)
-                // })
             }
         }
         tableCategories.appendChild(tbodyCategories);
@@ -136,10 +114,6 @@ form.addEventListener('submit', function (e) {
     loadCategories();
 });
 // Btn para Cancelar la edición de la categoría y volver a la pantalla anterior
-btnCancelCategory.addEventListener('click', function () {
-    divEditCategory.classList.add('d-none');
-    divCategory.classList.remove('d-none');
-});
 // Btn para Editar el nombre de la categoría y volver a la pantalla anterior
 // btnEditCategory.addEventListener('click', (e) => {
 //      const editCategoryName = (e) => {
