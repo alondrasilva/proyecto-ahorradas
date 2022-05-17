@@ -1,6 +1,6 @@
 
 .wrapper {
-    width:70vw;
+    width:100vw;
 }
 
 .main {
@@ -50,12 +50,14 @@ select, input {
 }
 
 @media (max-width: 992px) {
+  
     .container-fluid {
         width:100vw;
     }
 
     .main {
         margin-top: 1rem;
+        margin-bottom:1rem;
     }
 
 }
