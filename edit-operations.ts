@@ -63,7 +63,7 @@ selectType.appendChild(selectTypeOp1)
 selectType.appendChild(selectTypeOp2)
 
 const labelCategory = document.createElement('label')
-labelCategory.textContent = "Categoria"
+labelCategory.textContent = "Categoría"
 labelCategory.setAttribute('for', 'category')
 
 const selectCategory = document.createElement('select')
@@ -73,6 +73,31 @@ selectCategory.setAttribute('id', 'category')
 
 form.appendChild(labelCategory)
 form.appendChild(selectCategory)
+
+const createCategoryFilter = () => {
+
+    const ls_storage = JSON.parse(localStorage.getItem('ahorradas-data'))
+
+
+    ls_storage.categories.forEach(category => {
+
+        for(const prop in category) {
+
+            if(prop == "name") {
+
+                const option = document.createElement('option')
+                option.setAttribute('value', `${category.name}`)
+                option.setAttribute('id', `${category.name}`)
+                option.textContent = `${category.name}`
+                
+                selectCategory.appendChild(option)
+            }
+        }
+
+    }) 
+}
+
+createCategoryFilter()
 
 const date = document.createElement('label')
 date.textContent = "Fecha"
@@ -113,17 +138,17 @@ aBtnAdd.appendChild(btnAdd)
 
 const params = new URLSearchParams(window.location.search)
 
-const id = params.get('id')
+const id = params.get('operationID')
 
 const storage = JSON.parse(localStorage.getItem('ahorradas-data'))
 
-const item = storage.operations.find(item => item.id == id)
+const item = storage.operations.find(item => item.operationID == id)
 
-inputDescription.value = item.description
-inputAmount.value = item.amount
-selectType.value = item.type
-selectCategory.value = item.category
-inputDate.value = item.date
+inputDescription.value = item.operationDescription
+inputAmount.value = item.operationAmount
+selectType.value = item.operationType
+selectCategory.value = item.name
+inputDate.value = item.operationDate
 
 console.log(item)
 

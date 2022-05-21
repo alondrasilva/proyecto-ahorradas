@@ -56,13 +56,28 @@ form.appendChild(selectType);
 selectType.appendChild(selectTypeOp1);
 selectType.appendChild(selectTypeOp2);
 var labelCategory = document.createElement('label');
-labelCategory.textContent = "Categoria";
+labelCategory.textContent = "Categoría";
 labelCategory.setAttribute('for', 'category');
 var selectCategory = document.createElement('select');
 selectCategory.setAttribute('name', 'category');
 selectCategory.setAttribute('id', 'category');
 form.appendChild(labelCategory);
 form.appendChild(selectCategory);
+var createCategoryFilter = function () {
+    var ls_storage = JSON.parse(localStorage.getItem('ahorradas-data'));
+    ls_storage.categories.forEach(function (category) {
+        for (var prop in category) {
+            if (prop == "name") {
+                var option = document.createElement('option');
+                option.setAttribute('value', "".concat(category.categoryName));
+                option.setAttribute('id', "".concat(category.categoryName));
+                option.textContent = "".concat(category.categoryName);
+                selectCategory.appendChild(option);
+            }
+        }
+    });
+};
+createCategoryFilter();
 var date = document.createElement('label');
 date.textContent = "Fecha";
 date.setAttribute('for', 'date');
@@ -93,14 +108,14 @@ div.appendChild(aBtnAdd);
 aBtnAdd.appendChild(btnAdd);
 // Traerme los datos de la operación mediante params para modificarlos y reescribirlos
 var params = new URLSearchParams(window.location.search);
-var id = params.get('id');
+var id = params.get('operationID');
 var storage = JSON.parse(localStorage.getItem('ahorradas-data'));
-var item = storage.operations.find(function (item) { return item.id == id; });
-inputDescription.value = item.description;
-inputAmount.value = item.amount;
-selectType.value = item.type;
-selectCategory.value = item.category;
-inputDate.value = item.date;
+var item = storage.operations.find(function (item) { return item.operationID == id; });
+inputDescription.value = item.operationDescription;
+inputAmount.value = item.operationAmount;
+selectType.value = item.operationType;
+selectCategory.value = item.categoryName;
+inputDate.value = item.operationDate;
 console.log(item);
 form.addEventListener('submit', function (e) {
     e.preventDefault();

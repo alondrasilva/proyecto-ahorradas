@@ -3,9 +3,7 @@ var loadStorageIfEmpty = function () {
     var lStor = JSON.parse(localStorage.getItem('ahorradas-data'));
     if (!lStor) {
         lStor = {
-
             categories: [{
-
                     "id": 1,
                     "name": "Servicios"
                 },
@@ -19,7 +17,7 @@ var loadStorageIfEmpty = function () {
                 },
                 {
                     "id": 4,
-                    "name": "Educacion"
+                    "name": "Educación"
                 },
                 {
                     "id": 5,
@@ -30,14 +28,6 @@ var loadStorageIfEmpty = function () {
                     "name": "Trabajo"
                 }
             ],
-            cuentas: [
-                {
-                    "gastos": []
-                },
-                {
-                    "ganancias": []
-                }
-            ],
             operations: []
         };
     }
@@ -45,6 +35,7 @@ var loadStorageIfEmpty = function () {
     return lStorage;
 };
 loadStorageIfEmpty();
+// localStorage.removeItem('ahorradas-data')
 //Navbar
 var body = document.body;
 var header = document.createElement('header');

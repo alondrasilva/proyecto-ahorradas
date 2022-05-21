@@ -257,6 +257,10 @@ th5Operations.appendChild(textTh5Operations);
 th6Operations.appendChild(textTh6Operations);
 var tbodyOperations = document.createElement('tbody');
 tbodyOperations.setAttribute('id', 'table-body');
+var getNameCategory = function (id) {
+    var ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'));
+    return ls_Storage.categories.find(function (category) { return category.id == id; }).name;
+};
 var loadOperations = function () {
     tbodyOperations.innerHTML = "";
     var ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'));
@@ -264,15 +268,15 @@ var loadOperations = function () {
         var tr = document.createElement('tr');
         tr.setAttribute('value', operation.id);
         for (var prop in operation) {
-            if (prop !== "id") {
-                if (prop !== "type") {
-                    var td = document.createElement('td');
-                    td.setAttribute('value', "".concat(operation[prop]));
-                    td.appendChild(document.createTextNode(operation[prop]));
-                    tr.appendChild(td);
-                }
+            if ((prop != "id") && (prop != "categoryID") && (prop != "type")) {
+                var td_1 = document.createElement('td');
+                td_1.appendChild(document.createTextNode(operation[prop]));
+                tr.appendChild(td_1);
             }
         }
+        var td = document.createElement('td');
+        td.appendChild(document.createTextNode(getNameCategory(operation.id)));
+        tr.appendChild(td);
         var tdBtn = document.createElement('td');
         tdBtn.classList.add('text-end');
         var aBtnEditCategory = document.createElement('a');
@@ -292,15 +296,15 @@ var loadOperations = function () {
         tbodyOperations.appendChild(tr);
         // Boton que elimina categorias en el local storage y en el documento
         btnDelete.addEventListener('click', function (e) {
-            var deleteOperation = function (e) {
-                var lStorage = JSON.parse(localStorage.getItem('ahorradas-data'));
-                var findIndex = lStorage.operations.findIndex(function (operation) { return operation.id == e.target.value; });
-                lStorage.operations.splice(findIndex, 1);
-                localStorage.setItem('ahorradas-data', JSON.stringify(lStorage));
-                loadOperations();
-                showOrEmpty();
-            };
-            deleteOperation(e);
+            // const deleteOperation = (e) => {
+            var lStorage = JSON.parse(localStorage.getItem('ahorradas-data'));
+            var findIndex = lStorage.operations.findIndex(function (operation) { return operation.id == e.target.value; });
+            lStorage.operations.splice(findIndex, 1);
+            localStorage.setItem('ahorradas-data', JSON.stringify(lStorage));
+            loadOperations();
+            showOrEmpty();
+            // }
+            // deleteOperation(e)
         });
     });
 };

@@ -27,7 +27,7 @@ var labelEdit = document.createElement('label');
 labelEdit.textContent = "Nombre";
 var inputEdit = document.createElement('input');
 inputEdit.setAttribute('id', 'input-add-category');
-inputEdit.setAttribute('value', 'input');
+// inputEdit.setAttribute('value', 'input')
 divEditCategory.appendChild(formEdit);
 formEdit.appendChild(labelEdit);
 formEdit.appendChild(inputEdit);
@@ -54,6 +54,8 @@ var params = new URLSearchParams(window.location.search);
 var id = params.get('id');
 var storage = JSON.parse(localStorage.getItem('ahorradas-data'));
 var item = storage.categories.find(function (item) { return item.id == id; });
+console.log(item);
+console.log(id);
 inputEdit.value = item.name;
 formEdit.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -63,11 +65,18 @@ formEdit.addEventListener('submit', function (e) {
         "name": inputEdit.value
     };
     console.log(payload);
-    var newItems = storage.categories.map(function (item) {
+    var newItemsCategories = storage.categories.map(function (item) {
         if (item.id == id) {
             return payload;
         }
         return item;
     });
-    localStorage.setItem('ahorradas-data', JSON.stringify(__assign(__assign({}, storage), { categories: newItems })));
+    var newItemsOperations = storage.operations.map(function (item) {
+        if (item.id == id) {
+            // return item.name = name
+        }
+    });
+    localStorage.setItem('ahorradas-data', JSON.stringify(__assign(__assign({}, storage), { 
+        // operations: 
+        categories: newItemsCategories })));
 });

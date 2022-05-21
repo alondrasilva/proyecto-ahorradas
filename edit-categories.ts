@@ -27,7 +27,7 @@ labelEdit.textContent = "Nombre"
 
 const inputEdit = document.createElement('input')
 inputEdit.setAttribute('id', 'input-add-category')
-inputEdit.setAttribute('value', 'input')
+// inputEdit.setAttribute('value', 'input')
 
 divEditCategory.appendChild(formEdit)
 formEdit.appendChild(labelEdit)
@@ -66,6 +66,9 @@ const storage = JSON.parse(localStorage.getItem('ahorradas-data'))
 
 const item = storage.categories.find(item => item.id == id)
 
+
+console.log(item)
+console.log(id)
 inputEdit.value = item.name
 
 formEdit.addEventListener('submit', (e) => {
@@ -79,17 +82,24 @@ formEdit.addEventListener('submit', (e) => {
     }
     console.log(payload)
 
-    const newItems = storage.categories.map(item => {
+    const newItemsCategories = storage.categories.map(item => {
         if(item.id == id) {
             return payload
         }
         return item
     })
+
+    const newItemsOperations = storage.operations.map(item => {
+        if(item.id == id) {
+            // return item.name = name
+        }
+    })
     
 
     localStorage.setItem('ahorradas-data', JSON.stringify({
         ...storage,
-        categories: newItems,
+        // operations: 
+        categories: newItemsCategories,
     }))
 
 })

@@ -348,6 +348,14 @@ th6Operations.appendChild(textTh6Operations)
 const tbodyOperations = document.createElement('tbody')
 tbodyOperations.setAttribute('id', 'table-body')
 
+const getNameCategory = (id) => {
+
+    const ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'))
+
+    return ls_Storage.categories.find(category => category.id == id).name
+
+}
+
 const loadOperations = ()=> {
 
     tbodyOperations.innerHTML = ""
@@ -361,21 +369,22 @@ const loadOperations = ()=> {
 
         for(const prop in operation) {
 
-            if(prop !== "id") {
-                if(prop !== "type") {
+            if((prop != "id") && (prop != "categoryID") && (prop != "type")) {
 
                 const td = document.createElement('td')
-                td.setAttribute('value',`${operation[prop]}`)
                 
                 td.appendChild(document.createTextNode(operation[prop]))
                 tr.appendChild(td)
 
-                }
-                
-            }
+            } 
+        }
+        
+        const td = document.createElement('td')
+        
+        td.appendChild(document.createTextNode(getNameCategory(operation.id)))
+        tr.appendChild(td)
 
-        } 
-
+        
         const tdBtn = document.createElement('td')
         tdBtn.classList.add('text-end')
 
@@ -403,20 +412,21 @@ const loadOperations = ()=> {
         // Boton que elimina categorias en el local storage y en el documento
         btnDelete.addEventListener('click', (e) => {
 
-            const deleteOperation = (e) => {
+            // const deleteOperation = (e) => {
 
-            let lStorage = JSON.parse(localStorage.getItem('ahorradas-data'))
+            const lStorage = JSON.parse(localStorage.getItem('ahorradas-data'))
 
             let findIndex = lStorage.operations.findIndex(operation => operation.id == e.target.value)
             lStorage.operations.splice(findIndex, 1)
+            
 
             localStorage.setItem('ahorradas-data', JSON.stringify(lStorage))
             loadOperations()
             showOrEmpty()
 
-            }
+            // }
                     
-            deleteOperation(e)
+            // deleteOperation(e)
         })
     });
 
@@ -432,7 +442,6 @@ loadOperations()
 const createCategoryFilter = () => {
 
     const ls_storage = JSON.parse(localStorage.getItem('ahorradas-data'))
-
 
     ls_storage.categories.forEach(category => {
 

@@ -26,7 +26,7 @@ labelDescription.textContent = "Descripción"
 const inputDescription = document.createElement('input')
 inputDescription.setAttribute('for', 'description')
 inputDescription.setAttribute('id', 'description')
-// inputDescription.setAttribute('required', 'true')
+inputDescription.setAttribute('placeholder', 'Introduce aquí el nombre de la operación. Por ej. Sueldo')
 
 form.appendChild(labelDescription)
 form.appendChild(inputDescription)
@@ -38,7 +38,7 @@ labelAmount.textContent = "Monto"
 const inputAmount = document.createElement('input')
 inputAmount.setAttribute('for', 'amount')
 inputAmount.setAttribute('id', 'amount')
-// inputAmount.setAttribute('required', 'true')
+inputAmount.setAttribute('value', '0')
 
 form.appendChild(labelAmount)
 form.appendChild(inputAmount)
@@ -63,7 +63,7 @@ selectType.appendChild(selectTypeOp1)
 selectType.appendChild(selectTypeOp2)
 
 const labelCategory = document.createElement('label')
-labelCategory.textContent = "Categoria"
+labelCategory.textContent = "Categoría"
 labelCategory.setAttribute('for', 'category')
 
 const selectCategory = document.createElement('select')
@@ -76,8 +76,6 @@ form.appendChild(selectCategory)
 const createCategoryFilter = () => {
 
     const ls_storage = JSON.parse(localStorage.getItem('ahorradas-data'))
-
-
     ls_storage.categories.forEach(category => {
 
         for(const prop in category) {
@@ -85,8 +83,8 @@ const createCategoryFilter = () => {
             if(prop == "name") {
 
                 const option = document.createElement('option')
-                option.setAttribute('value', `${category.name}`)
-                option.setAttribute('id', `${category.name}`)
+                option.setAttribute('value', `${category.id}`)
+                option.setAttribute('id', `${category.id}`)
                 option.textContent = `${category.name}`
                 
                 selectCategory.appendChild(option)
@@ -142,17 +140,29 @@ const createIDOperations = () => {
 
     let arrayId = lStor.operations.map(elem => {
         
-        return elem.id
+        return elem.operationID
         
     })
     console.log(arrayId)
 
-    let lastId = Math.max(...arrayId)
-
-    let newId = lastId + 1
-
-    return newId
+    if(arrayId.length == 0) {
+        return 1
+    } else {
+        let lastId = Math.max(...arrayId)
+        let newId = lastId + 1  
+        return newId
+    }
     
+}
+
+// Función para buscar el nombre de una categoría recibiendo como parámetro el ID
+
+const getCategoryName = (id) => {
+
+    let lStorage = JSON.parse(localStorage.getItem('ahorradas-data'))
+
+    return lStorage.categories.find(category => category.id == id).name
+
 }
 
 //Boton para agregar nueva operacion en el local storage 
@@ -168,11 +178,11 @@ form.addEventListener('submit', (e) => {
         "description" : inputDescription.value,
         "amount" : inputAmount.value,
         "type" : selectType.value,
-        "category" : selectCategory.value,
+        "categoryID" : selectCategory.value,
+        "categoryName" : selectCategory.value,
         "date" : inputDate.value
 
-    })
- 
+    }) 
     localStorage.setItem('ahorradas-data', JSON.stringify(ls_Storage))
-    loadOperations()
 })
+
