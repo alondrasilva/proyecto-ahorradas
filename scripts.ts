@@ -175,8 +175,3 @@ aNavbarItem3.appendChild(navbarItemText3)
 const footer = document.createElement('footer')
 footer.classList.add('fixed-bottom')
 
-const span = document.createElement('span')
-span.textContent = "Creado por Alondra y Andrea"
-
-body.appendChild(footer)
-footer.appendChild(span)
