@@ -55,6 +55,7 @@ select, input {
 
 .color-red{
     color: red
+}
 
 @media (max-width: 992px) {
   
