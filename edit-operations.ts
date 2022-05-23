@@ -138,19 +138,32 @@ aBtnAdd.appendChild(btnAdd)
 
 const params = new URLSearchParams(window.location.search)
 
-const id = params.get('operationID')
+const id = params.get('id')
 
 const storage = JSON.parse(localStorage.getItem('ahorradas-data'))
 
-const item = storage.operations.find(item => item.operationID == id)
+const item = storage.operations.find(item => item.id == id)
 
-inputDescription.value = item.operationDescription
-inputAmount.value = item.operationAmount
-selectType.value = item.operationType
-selectCategory.value = item.name
-inputDate.value = item.operationDate
 
-console.log(item)
+const getNameCategory = (id) => {
+
+    let categoryName = ""
+
+    const ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'))
+
+    let categorySelected = ls_Storage.operations.find(operation => operation.id == id).categoryID
+    
+    categoryName = ls_Storage.categories.find(category => category.id == categorySelected).name
+
+    return categoryName
+
+}
+
+inputDescription.value = item.description
+inputAmount.value = item.amount
+selectType.value = item.type
+selectCategory.value = getNameCategory(id)
+inputDate.value = item.date
 
 form.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -161,7 +174,8 @@ form.addEventListener('submit', (e) => {
         "id" : item.id,
         "description" : inputDescription.value,
         "type" : selectType.value,
-        "category" : selectCategory.value, // No me trae las categorías, puede ser porque se crean por defecto dependiendo de las que estan creadas
+        "categoryID" : selectCategory.value,
+        "categoryName" : getNameCategory(id), // No me trae las categorías, puede ser porque se crean por defecto dependiendo de las que estan creadas
         "date" : inputDate.value
     }
     console.log(payload)

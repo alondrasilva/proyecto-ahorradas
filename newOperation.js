@@ -73,7 +73,7 @@ date.setAttribute('for', 'date');
 var inputDate = document.createElement('input');
 inputDate.setAttribute('name', 'date');
 inputDate.setAttribute('type', 'date');
-inputDate.setAttribute('value', '2022-05-02');
+inputDate.setAttribute('value', new Date());
 inputDate.setAttribute('id', 'date');
 form.appendChild(date);
 form.appendChild(inputDate);
@@ -99,7 +99,7 @@ aBtnAdd.appendChild(btnAdd);
 var createIDOperations = function () {
     var lStor = JSON.parse(localStorage.getItem('ahorradas-data'));
     var arrayId = lStor.operations.map(function (elem) {
-        return elem.operationID;
+        return elem.id;
     });
     console.log(arrayId);
     if (arrayId.length == 0) {
@@ -112,10 +112,11 @@ var createIDOperations = function () {
     }
 };
 // Función para buscar el nombre de una categoría recibiendo como parámetro el ID
-var getCategoryName = function (id) {
-    var lStorage = JSON.parse(localStorage.getItem('ahorradas-data'));
-    return lStorage.categories.find(function (category) { return category.id == id; }).name;
-};
+// const getCategoryName = (id) => {
+//     let lStorage = JSON.parse(localStorage.getItem('ahorradas-data'))
+//     return lStorage.categories.find(category => category.id == id).name
+// }
+// console.log(getCategoryName(id))
 //Boton para agregar nueva operacion en el local storage 
 form.addEventListener('submit', function (e) {
     e.preventDefault();

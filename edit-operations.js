@@ -69,9 +69,9 @@ var createCategoryFilter = function () {
         for (var prop in category) {
             if (prop == "name") {
                 var option = document.createElement('option');
-                option.setAttribute('value', "".concat(category.categoryName));
-                option.setAttribute('id', "".concat(category.categoryName));
-                option.textContent = "".concat(category.categoryName);
+                option.setAttribute('value', "".concat(category.name));
+                option.setAttribute('id', "".concat(category.name));
+                option.textContent = "".concat(category.name);
                 selectCategory.appendChild(option);
             }
         }
@@ -108,15 +108,21 @@ div.appendChild(aBtnAdd);
 aBtnAdd.appendChild(btnAdd);
 // Traerme los datos de la operación mediante params para modificarlos y reescribirlos
 var params = new URLSearchParams(window.location.search);
-var id = params.get('operationID');
+var id = params.get('id');
 var storage = JSON.parse(localStorage.getItem('ahorradas-data'));
-var item = storage.operations.find(function (item) { return item.operationID == id; });
-inputDescription.value = item.operationDescription;
-inputAmount.value = item.operationAmount;
-selectType.value = item.operationType;
-selectCategory.value = item.categoryName;
-inputDate.value = item.operationDate;
-console.log(item);
+var item = storage.operations.find(function (item) { return item.id == id; });
+var getNameCategory = function (id) {
+    var categoryName = "";
+    var ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'));
+    var categorySelected = ls_Storage.operations.find(function (operation) { return operation.id == id; }).categoryID;
+    categoryName = ls_Storage.categories.find(function (category) { return category.id == categorySelected; }).name;
+    return categoryName;
+};
+inputDescription.value = item.description;
+inputAmount.value = item.amount;
+selectType.value = item.type;
+selectCategory.value = getNameCategory(id);
+inputDate.value = item.date;
 form.addEventListener('submit', function (e) {
     e.preventDefault();
     var storage = JSON.parse(localStorage.getItem('ahorradas-data'));
@@ -124,7 +130,8 @@ form.addEventListener('submit', function (e) {
         "id": item.id,
         "description": inputDescription.value,
         "type": selectType.value,
-        "category": selectCategory.value,
+        "categoryID": selectCategory.value,
+        "categoryName": getNameCategory(id),
         "date": inputDate.value
     };
     console.log(payload);

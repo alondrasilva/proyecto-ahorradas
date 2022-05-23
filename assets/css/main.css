@@ -44,4 +44,9 @@ select, input {
     width:100%;
     padding:8px;
 }
-
+.color-green {
+    color: green;
+}
+.color-red{
+    color: red
+}

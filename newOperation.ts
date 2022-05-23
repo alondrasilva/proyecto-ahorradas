@@ -103,7 +103,7 @@ date.setAttribute('for', 'date')
 const inputDate = document.createElement('input')
 inputDate.setAttribute('name', 'date')
 inputDate.setAttribute('type', 'date')
-inputDate.setAttribute('value', '2022-05-02')
+inputDate.setAttribute('value', new Date();)
 inputDate.setAttribute('id', 'date')
 
 form.appendChild(date)
@@ -140,7 +140,7 @@ const createIDOperations = () => {
 
     let arrayId = lStor.operations.map(elem => {
         
-        return elem.operationID
+        return elem.id
         
     })
     console.log(arrayId)
@@ -157,13 +157,15 @@ const createIDOperations = () => {
 
 // Función para buscar el nombre de una categoría recibiendo como parámetro el ID
 
-const getCategoryName = (id) => {
+// const getCategoryName = (id) => {
 
-    let lStorage = JSON.parse(localStorage.getItem('ahorradas-data'))
+//     let lStorage = JSON.parse(localStorage.getItem('ahorradas-data'))
 
-    return lStorage.categories.find(category => category.id == id).name
+//     return lStorage.categories.find(category => category.id == id).name
 
-}
+// }
+
+// console.log(getCategoryName(id))
 
 //Boton para agregar nueva operacion en el local storage 
 
