@@ -49,6 +49,13 @@ select, input {
     padding:8px;
 }
 
+.color-green {
+    color: green;
+}
+
+.color-red{
+    color: red
+
 @media (max-width: 992px) {
   
     .container-fluid {

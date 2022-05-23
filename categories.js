@@ -41,7 +41,6 @@ var tableCategories = document.createElement('table');
 tableCategories.classList.add('table', 'table-borderless');
 var tbodyCategories = document.createElement('tbody');
 divCategory.appendChild(tableCategories);
-// Editar category oculto
 // Cargas las categorías dinamicamente
 // let valueCapturado
 var loadCategories = function () {
@@ -49,21 +48,21 @@ var loadCategories = function () {
     var ls_data = JSON.parse(localStorage.getItem('ahorradas-data'));
     ls_data.categories.forEach(function (category) {
         var tr = document.createElement('tr');
-        tr.setAttribute('value', category.id);
+        // tr.setAttribute('value', category.id)
         for (var prop in category) {
             if (prop == "name") {
                 var td = document.createElement('td');
-                td.setAttribute('value', "".concat(category[prop]));
+                // td.setAttribute('value', `${category[prop]}`)
                 var tdbtn = document.createElement('td');
                 tdbtn.classList.add('text-end');
                 var aEdit = document.createElement('a');
                 aEdit.classList.add('btn', 'btn-secondary', 'btn-sm', 'me-1');
-                aEdit.setAttribute('value', "".concat(category.id));
+                // aEdit.setAttribute('value', `${category.id}`)
                 aEdit.setAttribute('href', "./edit-categories.html?id=".concat(category.id));
                 aEdit.textContent = "Editar";
                 var btnDelete = document.createElement('button');
                 btnDelete.classList.add('btn', 'btn-secondary', 'btn-sm');
-                btnDelete.setAttribute('value', "".concat(category.id));
+                // btnDelete.setAttribute('value', `${category.id}`)
                 btnDelete.textContent = "Eliminar";
                 td.appendChild(document.createTextNode(category[prop]));
                 tr.appendChild(td);
@@ -72,39 +71,17 @@ var loadCategories = function () {
                 tdbtn.appendChild(btnDelete);
                 // Boton que elimina categorias en el local storage y en el documento
                 btnDelete.addEventListener('click', function (e) {
-                    var deleteCategory = function (e) {
-                        var lStorage = JSON.parse(localStorage.getItem('ahorradas-data'));
-                        var findIndex = lStorage.categories.findIndex(function (category) { return category.id == e.target.value; });
-                        lStorage.categories.splice(findIndex, 1);
-                        // console.log(findIndex)
-                        localStorage.setItem('ahorradas-data', JSON.stringify(lStorage));
-                        loadCategories();
-                    };
-                    deleteCategory(e);
+                    // const deleteCategory = (e) => {
+                    var lStorage = JSON.parse(localStorage.getItem('ahorradas-data'));
+                    var findIndex = lStorage.categories.findIndex(function (category) { return category.id == e.target.value; });
+                    // lStorage.operations = lStorage.operations.filter(operation => operation.category !== e.target.value)
+                    lStorage.categories.splice(findIndex, 1);
+                    // console.log(findIndex)
+                    localStorage.setItem('ahorradas-data', JSON.stringify(lStorage));
+                    loadCategories();
+                    // }
+                    // deleteCategory(e)
                 });
-                // Btn Editar categoría
-                // btnEdit.addEventListener('click', (e) => {
-                //     divEditCategory.classList.remove('d-none')
-                //     divCategory.classList.add('d-none')
-                //     const editarCategory = (e) => {
-                //         let lStorage = JSON.parse(localStorage.getItem('ahorradas-data'))
-                //         // let findIndex = lStorage.categories.findIndex(category => category.id == e.target.value)
-                //         // console.log(findIndex)
-                //         // Es mejor usar find
-                //         lStorage.categories.forEach(element => {
-                //             if(e.target.value == element.id) {
-                //                 inputEdit.value = element.name
-                //                 // let oldName = lStorage.categories.filter()
-                //                 console.log(`Entró en el id: ${element.id} y en el e.target.value: ${e.target.value}`)
-                //                 console.log(element.name)
-                //             //     valueCapturado = element.id
-                //             // // input.value = element.name.value
-                //             //     console.log(valueCapturado)
-                //             }                          
-                //         });
-                //     }
-                //     editarCategory(e)
-                // })
             }
         }
         tableCategories.appendChild(tbodyCategories);
@@ -115,13 +92,18 @@ loadCategories();
 // Crear un nuevo ID para cada categoría nueva
 var createID = function () {
     var lStor = JSON.parse(localStorage.getItem('ahorradas-data'));
-    var arrayId = lStor.categories.map(function (elem) {
-        return elem.id;
+    var arrayId = lStor.categories.map(function (category) {
+        return category.id;
     });
     console.log(arrayId);
-    var lastId = Math.max.apply(Math, arrayId);
-    var newId = lastId + 1;
-    return newId;
+    if (arrayId.length == 0) {
+        return 1;
+    }
+    else {
+        var lastId = Math.max.apply(Math, arrayId);
+        var newId = lastId + 1;
+        return newId;
+    }
 };
 //Btn para agregar nueva categoria y meterla en el local storage
 form.addEventListener('submit', function (e) {
@@ -135,26 +117,3 @@ form.addEventListener('submit', function (e) {
     input.value = "";
     loadCategories();
 });
-// Btn para Cancelar la edición de la categoría y volver a la pantalla anterior
-btnCancelCategory.addEventListener('click', function () {
-    divEditCategory.classList.add('d-none');
-    divCategory.classList.remove('d-none');
-});
-// Btn para Editar el nombre de la categoría y volver a la pantalla anterior
-// btnEditCategory.addEventListener('click', (e) => {
-//      const editCategoryName = (e) => {
-//         let lStorage = JSON.parse(localStorage.getItem('ahorradas-data'))
-// //        const form = e.target
-//         const newCategoryName = inputEdit.value
-//         console.log(newCategoryName)
-//         console.log(e.target.value)
-//         console.log(e.target)
-// //         // let findIndex = lStorage.categories.findIndex(category => category.id == e.target.value)
-//         // console.log(valueCapturado)
-//          lStorage.categories.forEach(element => {
-//          })
-//         localStorage.setItem('ahorradas-data', JSON.stringify(lStorage))
-// //         // loadCategories()
-//      }
-//     editCategoryName(e)
-// })

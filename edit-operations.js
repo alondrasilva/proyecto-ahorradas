@@ -1,3 +1,14 @@
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var body = document.body;
 var container = document.createElement('div');
 container.classList.add('container', 'my-5');
@@ -6,7 +17,7 @@ divNewOperations.classList.add('main', 'p-4', 'shadow-sm');
 body.appendChild(container);
 container.appendChild(divNewOperations);
 var h2 = document.createElement('h2');
-var textH4 = document.createTextNode('Nueva operación');
+var textH4 = document.createTextNode('Editar operación');
 divNewOperations.appendChild(h2);
 h2.appendChild(textH4);
 var form = document.createElement('form');
@@ -18,7 +29,7 @@ labelDescription.textContent = "Descripción";
 var inputDescription = document.createElement('input');
 inputDescription.setAttribute('for', 'description');
 inputDescription.setAttribute('id', 'description');
-inputDescription.setAttribute('placeholder', 'Introduce aquí el nombre de la operación. Por ej. Sueldo');
+inputDescription.setAttribute('required', 'true');
 form.appendChild(labelDescription);
 form.appendChild(inputDescription);
 var labelAmount = document.createElement('label');
@@ -27,7 +38,7 @@ labelAmount.textContent = "Monto";
 var inputAmount = document.createElement('input');
 inputAmount.setAttribute('for', 'amount');
 inputAmount.setAttribute('id', 'amount');
-inputAmount.setAttribute('value', '0');
+inputAmount.setAttribute('required', 'true');
 form.appendChild(labelAmount);
 form.appendChild(inputAmount);
 var labelType = document.createElement('label');
@@ -58,8 +69,8 @@ var createCategoryFilter = function () {
         for (var prop in category) {
             if (prop == "name") {
                 var option = document.createElement('option');
-                option.setAttribute('value', "".concat(category.id));
-                option.setAttribute('id', "".concat(category.id));
+                option.setAttribute('value', "".concat(category.name));
+                option.setAttribute('id', "".concat(category.name));
                 option.textContent = "".concat(category.name);
                 selectCategory.appendChild(option);
             }
@@ -73,7 +84,7 @@ date.setAttribute('for', 'date');
 var inputDate = document.createElement('input');
 inputDate.setAttribute('name', 'date');
 inputDate.setAttribute('type', 'date');
-inputDate.setAttribute('value', new Date());
+inputDate.setAttribute('value', '2022-05-02');
 inputDate.setAttribute('id', 'date');
 form.appendChild(date);
 form.appendChild(inputDate);
@@ -88,47 +99,47 @@ var aBtnAdd = document.createElement('a');
 aBtnAdd.setAttribute('href', './index.html');
 var btnAdd = document.createElement('button');
 btnAdd.setAttribute('type', 'submit');
-btnAdd.classList.add('btn', 'btn-primary');
+btnAdd.classList.add('btn', 'btn-primary', 'active');
 btnAdd.textContent = 'Agregar';
 form.appendChild(div);
 div.appendChild(aBtnCancel);
 aBtnCancel.appendChild(btnCancel);
 div.appendChild(aBtnAdd);
 aBtnAdd.appendChild(btnAdd);
-// Crear un nuevo ID para cada categoría nueva
-var createIDOperations = function () {
-    var lStor = JSON.parse(localStorage.getItem('ahorradas-data'));
-    var arrayId = lStor.operations.map(function (elem) {
-        return elem.id;
-    });
-    console.log(arrayId);
-    if (arrayId.length == 0) {
-        return 1;
-    }
-    else {
-        var lastId = Math.max.apply(Math, arrayId);
-        var newId = lastId + 1;
-        return newId;
-    }
+// Traerme los datos de la operación mediante params para modificarlos y reescribirlos
+var params = new URLSearchParams(window.location.search);
+var id = params.get('id');
+var storage = JSON.parse(localStorage.getItem('ahorradas-data'));
+var item = storage.operations.find(function (item) { return item.id == id; });
+var getNameCategory = function (id) {
+    var categoryName = "";
+    var ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'));
+    var categorySelected = ls_Storage.operations.find(function (operation) { return operation.id == id; }).categoryID;
+    categoryName = ls_Storage.categories.find(function (category) { return category.id == categorySelected; }).name;
+    return categoryName;
 };
-// Función para buscar el nombre de una categoría recibiendo como parámetro el ID
-// const getCategoryName = (id) => {
-//     let lStorage = JSON.parse(localStorage.getItem('ahorradas-data'))
-//     return lStorage.categories.find(category => category.id == id).name
-// }
-// console.log(getCategoryName(id))
-//Boton para agregar nueva operacion en el local storage 
+inputDescription.value = item.description;
+inputAmount.value = item.amount;
+selectType.value = item.type;
+selectCategory.value = getNameCategory(id);
+inputDate.value = item.date;
 form.addEventListener('submit', function (e) {
     e.preventDefault();
-    var ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'));
-    ls_Storage.operations.push({
-        "id": createIDOperations(),
+    var storage = JSON.parse(localStorage.getItem('ahorradas-data'));
+    var payload = {
+        "id": item.id,
         "description": inputDescription.value,
-        "amount": inputAmount.value,
         "type": selectType.value,
         "categoryID": selectCategory.value,
-        "categoryName": selectCategory.value,
+        "categoryName": getNameCategory(id),
         "date": inputDate.value
+    };
+    console.log(payload);
+    var newItems = storage.operations.map(function (item) {
+        if (item.id == id) {
+            return payload;
+        }
+        return item;
     });
-    localStorage.setItem('ahorradas-data', JSON.stringify(ls_Storage));
+    localStorage.setItem('ahorradas-data', JSON.stringify(__assign(__assign({}, storage), { operations: newItems })));
 });

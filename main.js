@@ -32,7 +32,7 @@ var tr1 = document.createElement('tr');
 var td1 = document.createElement('td');
 var textTd1 = document.createTextNode('Ganancias');
 var td2 = document.createElement('td');
-td2.classList.add('text-end');
+td2.classList.add('text-end', 'color-green');
 var textTd2 = document.createTextNode('+$0');
 divBalance.appendChild(balanceTable);
 balanceTable.appendChild(tbody);
@@ -45,8 +45,8 @@ var tr2 = document.createElement('tr');
 var td3 = document.createElement('td');
 var textTd3 = document.createTextNode('Gastos');
 var td4 = document.createElement('td');
-td4.classList.add('text-end');
-var textTd4 = document.createTextNode('-$0');
+td4.classList.add('text-end', 'color-red');
+var textTd4 = document.createTextNode('$0');
 tbody.appendChild(tr2);
 tr2.appendChild(td3);
 td3.appendChild(textTd3);
@@ -122,6 +122,11 @@ labelCategory.setAttribute('for', 'categories');
 var selectCategory = document.createElement('select');
 selectCategory.setAttribute('name', 'categories');
 selectCategory.setAttribute('id', 'filter-categories');
+var optionAll = document.createElement('option');
+optionAll.setAttribute('value', 'todos');
+optionAll.setAttribute('id', 'todos');
+optionAll.textContent = "Todos";
+selectCategory.appendChild(optionAll);
 form.appendChild(labelCategory);
 form.appendChild(selectCategory);
 //label "desde", fecha
@@ -133,7 +138,7 @@ labelDate.classList.add('d-block');
 var input = document.createElement('input');
 input.setAttribute('name', 'input-date');
 input.setAttribute('type', 'date');
-input.setAttribute('value', '2022-05-02');
+input.setAttribute('value', '2022-01-01');
 input.setAttribute('id', 'input-date');
 form.appendChild(labelDate);
 form.appendChild(input);
@@ -257,46 +262,93 @@ th5Operations.appendChild(textTh5Operations);
 th6Operations.appendChild(textTh6Operations);
 var tbodyOperations = document.createElement('tbody');
 tbodyOperations.setAttribute('id', 'table-body');
+var balance = function () {
+    td2.textContent = 0;
+    td4.textContent = 0;
+    var totalGastos = 0;
+    var totalGanancias = 0;
+    var totalBalance = 0;
+    var ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'));
+    var gastos = function () {
+        ls_Storage.operations.forEach(function (operation) {
+            if (operation.type == "Gasto") {
+                totalGastos = totalGastos + parseInt(operation.amount);
+                td4.textContent = totalGastos;
+            }
+        });
+        return totalGastos;
+    };
+    var ganancias = function () {
+        ls_Storage.operations.forEach(function (operation) {
+            if (operation.type == "Ganancia") {
+                totalGanancias = totalGanancias + parseInt(operation.amount);
+                td2.textContent = totalGanancias;
+            }
+        });
+        return totalGanancias;
+    };
+    var total = function () {
+        td6.textContent = totalGanancias - totalGastos;
+    };
+    gastos();
+    ganancias();
+    total();
+};
+balance();
+var getNameCategory = function (id) {
+    var ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'));
+    return ls_Storage.categories.find(function (category) { return category.id == id; }).name;
+};
 var loadOperations = function () {
     tbodyOperations.innerHTML = "";
     var ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'));
-    ls_Storage.operations.forEach(function (operation) {
+    var operations = ls_Storage.operations;
+    var params = new URLSearchParams(window.location.search);
+    operations = operations.filter(function (op) { return op.categoryID === params.get('category'); });
+    operations = operations.filter(function (op) {
+        var dasdeDate = new Date(params.get('date'));
+        var opDate = new Date(op.date);
+        return dasdeDate.getTime() <= opDate.getTime();
+    });
+    operations.forEach(function (operation) {
         var tr = document.createElement('tr');
         tr.setAttribute('value', operation.id);
         for (var prop in operation) {
-            if (prop !== "id") {
-                if (prop !== "type") {
-                    var td = document.createElement('td');
-                    td.setAttribute('value', "".concat(operation[prop]));
-                    td.appendChild(document.createTextNode(operation[prop]));
-                    tr.appendChild(td);
-                }
+            if ((prop != "id") && (prop !== "categoryID") && ("prop != type")) {
+                var td_1 = document.createElement('td');
+                td_1.appendChild(document.createTextNode(operation[prop]));
+                tr.appendChild(td_1);
             }
         }
+        var td = document.createElement('td');
+        td.appendChild(document.createTextNode(getNameCategory(operation.id)));
+        tr.appendChild(td);
         var tdBtn = document.createElement('td');
         tdBtn.classList.add('text-end');
+        var aBtnEditCategory = document.createElement('a');
+        aBtnEditCategory.setAttribute('href', "./edit-operations.html?id=".concat(operation.id));
         var btnEdit = document.createElement('button');
+        btnEdit.setAttribute('id', 'btn-edit-category');
         btnEdit.classList.add('btn', 'me-1');
         btnEdit.textContent = "Editar";
         var btnDelete = document.createElement('button');
         btnDelete.classList.add('btn', 'me-1');
         btnDelete.textContent = "Eliminar";
         tr.appendChild(tdBtn);
-        tdBtn.appendChild(btnEdit);
+        tdBtn.appendChild(aBtnEditCategory);
+        aBtnEditCategory.appendChild(btnEdit);
         tdBtn.appendChild(btnDelete);
         tableOperations.appendChild(tbodyOperations);
         tbodyOperations.appendChild(tr);
         // Boton que elimina categorias en el local storage y en el documento
         btnDelete.addEventListener('click', function (e) {
-            var deleteOperation = function (e) {
-                var lStorage = JSON.parse(localStorage.getItem('ahorradas-data'));
-                var findIndex = lStorage.operations.findIndex(function (operation) { return operation.id == e.target.value; });
-                lStorage.operations.splice(findIndex, 1);
-                localStorage.setItem('ahorradas-data', JSON.stringify(lStorage));
-                loadOperations();
-                showOrEmpty();
-            };
-            deleteOperation(e);
+            var lStorage = JSON.parse(localStorage.getItem('ahorradas-data'));
+            var findIndex = lStorage.operations.findIndex(function (operation) { return operation.id == e.target.value; });
+            lStorage.operations.splice(findIndex, 1);
+            localStorage.setItem('ahorradas-data', JSON.stringify(lStorage));
+            balance();
+            window.location.reload();
+            showOrEmpty();
         });
     });
 };
@@ -308,7 +360,7 @@ var createCategoryFilter = function () {
         for (var prop in category) {
             if (prop == "name") {
                 var option = document.createElement('option');
-                option.setAttribute('value', "".concat(category.name));
+                option.setAttribute('value', "".concat(category.id));
                 option.setAttribute('id', "".concat(category.name));
                 option.textContent = "".concat(category.name);
                 selectCategory.appendChild(option);
@@ -341,3 +393,24 @@ var showOrEmpty = function () {
     }
 };
 showOrEmpty();
+// Filtros
+var filters = function () {
+    var ls_storage = JSON.parse(localStorage.getItem('ahorradas-data'));
+    ls_storage.operations.forEach(function (operation) {
+        if (operation.type == "Gasto") {
+            var noSelected = ls_storage.operations.filter(function (operation) { return operation.type !== "Gasto"; });
+            console.log(noSelected);
+        }
+    });
+};
+filters();
+selectCategory.addEventListener('change', function (e) {
+    var params = new URLSearchParams(window.location.search);
+    params.set('category', e.target.value);
+    window.location.href = window.location.pathname + '?' + params.toString();
+});
+input.addEventListener('change', function (e) {
+    var params = new URLSearchParams(window.location.search);
+    params.set('date', e.target.value);
+    window.location.href = window.location.pathname + '?' + params.toString();
+});

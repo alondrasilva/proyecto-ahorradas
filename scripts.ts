@@ -14,7 +14,9 @@ type Category = {
 type Operation = {
     id: number,
     description: string,
-    category: Category,
+    type: string,
+    categoryID: number,
+    categoryName: Category,
     date: Date,
     amount: number
 }
@@ -43,7 +45,7 @@ const loadStorageIfEmpty = () => {
                 },
                 {
                     "id" : 4,
-                    "name" : "Educacion"
+                    "name" : "Educación"
                 },
                 {
                     "id" : 5,
@@ -54,16 +56,7 @@ const loadStorageIfEmpty = () => {
                     "name" : "Trabajo"
                 }
             ],
-
-            cuentas: [
-                {
-                    "gastos": []
-                },
-                {
-                    "ganancias": []
-                }
-            ],    
-                operations: [] 
+                operations: [],
         }
     } 
     
@@ -74,7 +67,10 @@ const loadStorageIfEmpty = () => {
 
 loadStorageIfEmpty()
 
+// localStorage.removeItem('ahorradas-data')
+
 //Navbar
+
 
 const body = document.body
 

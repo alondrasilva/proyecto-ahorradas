@@ -46,7 +46,7 @@ const tr1 = document.createElement('tr')
 const td1 = document.createElement('td')
 const textTd1 = document.createTextNode('Ganancias')
 const td2 = document.createElement('td')
-td2.classList.add('text-end')
+td2.classList.add('text-end', 'color-green')
 const textTd2 = document.createTextNode('+$0')
 
 divBalance.appendChild(balanceTable)
@@ -61,8 +61,8 @@ const tr2 = document.createElement('tr')
 const td3 = document.createElement('td')
 const textTd3 = document.createTextNode('Gastos')
 const td4 = document.createElement('td')
-td4.classList.add('text-end')
-const textTd4 = document.createTextNode('-$0')
+td4.classList.add('text-end', 'color-red')
+const textTd4 = document.createTextNode('$0')
 
 tbody.appendChild(tr2)
 tr2.appendChild(td3)
@@ -165,6 +165,13 @@ const selectCategory = document.createElement('select')
 selectCategory.setAttribute('name', 'categories')
 selectCategory.setAttribute('id', 'filter-categories')
 
+const optionAll = document.createElement('option')
+optionAll.setAttribute('value', 'todos')
+optionAll.setAttribute('id', 'todos')
+optionAll.textContent = "Todos"
+                
+selectCategory.appendChild(optionAll)
+
 form.appendChild(labelCategory)
 form.appendChild(selectCategory)
 
@@ -179,7 +186,7 @@ labelDate.classList.add('d-block')
 const input = document.createElement('input')
 input.setAttribute('name', 'input-date')
 input.setAttribute('type', 'date')
-input.setAttribute('value', '2022-05-02')
+input.setAttribute('value', '2022-01-01')
 input.setAttribute('id', 'input-date')
 
 form.appendChild(labelDate)
@@ -348,38 +355,107 @@ th6Operations.appendChild(textTh6Operations)
 const tbodyOperations = document.createElement('tbody')
 tbodyOperations.setAttribute('id', 'table-body')
 
+const balance = () => {
+
+    td2.textContent = 0
+    td4.textContent = 0
+
+    let totalGastos: number = 0
+    let totalGanancias: number = 0
+    let totalBalance: number = 0
+
+    const ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'))
+
+    const gastos = () => {
+
+            ls_Storage.operations.forEach((operation) => {
+                if(operation.type == "Gasto") {
+                    totalGastos = totalGastos + parseInt(operation.amount) 
+                    td4.textContent = totalGastos
+                }
+            })
+            return totalGastos
+    }
+
+    const ganancias = () => {
+
+        ls_Storage.operations.forEach((operation) => {
+            if(operation.type == "Ganancia") {
+                totalGanancias = totalGanancias + parseInt(operation.amount) 
+                td2.textContent = totalGanancias
+            }
+        })
+        return totalGanancias
+    }
+    
+    const total = () => {
+        td6.textContent = totalGanancias - totalGastos
+    }
+
+    gastos()
+    ganancias()
+    total()
+    
+   
+}
+
+balance()
+
+const getNameCategory = (id) => {
+
+    const ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'))
+
+    return ls_Storage.categories.find(category => category.id == id).name
+
+}
+
 const loadOperations = ()=> {
 
     tbodyOperations.innerHTML = ""
 
     const ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'))
 
-    ls_Storage.operations.forEach(operation => {
+    let operations = ls_Storage.operations;
+
+    const params = new URLSearchParams(window.location.search)
+
+    operations = operations.filter(op => op.categoryID === params.get('category'));
+    operations = operations.filter(op => {
+        const dasdeDate = new Date(params.get('date'));
+        const opDate = new Date(op.date);       
+
+        return dasdeDate.getTime() <= opDate.getTime();
+    });
+
+    operations.forEach(operation => {
 
         const tr = document.createElement('tr')
         tr.setAttribute('value', operation.id)
 
         for(const prop in operation) {
 
-            if(prop !== "id") {
-                if(prop !== "type") {
+            if((prop != "id") && (prop !== "categoryID") && ("prop != type")) {
 
                 const td = document.createElement('td')
-                td.setAttribute('value',`${operation[prop]}`)
                 
                 td.appendChild(document.createTextNode(operation[prop]))
                 tr.appendChild(td)
+            } 
+        }
+        
+        const td = document.createElement('td')
+        
+        td.appendChild(document.createTextNode(getNameCategory(operation.id)))
+        tr.appendChild(td)
 
-                }
-                
-            }
-
-        } 
-
+        
         const tdBtn = document.createElement('td')
         tdBtn.classList.add('text-end')
 
+        const aBtnEditCategory = document.createElement('a')
+        aBtnEditCategory.setAttribute('href', `./edit-operations.html?id=${operation.id}`)
         const btnEdit = document.createElement('button')
+        btnEdit.setAttribute('id', 'btn-edit-category')
         btnEdit.classList.add('btn', 'me-1')
         btnEdit.textContent = "Editar"
 
@@ -388,7 +464,8 @@ const loadOperations = ()=> {
         btnDelete.textContent = "Eliminar"
         
         tr.appendChild(tdBtn)
-        tdBtn.appendChild(btnEdit)
+        tdBtn.appendChild(aBtnEditCategory)
+        aBtnEditCategory.appendChild(btnEdit)
         tdBtn.appendChild(btnDelete)
 
 
@@ -399,20 +476,17 @@ const loadOperations = ()=> {
         // Boton que elimina categorias en el local storage y en el documento
         btnDelete.addEventListener('click', (e) => {
 
-            const deleteOperation = (e) => {
-
-            let lStorage = JSON.parse(localStorage.getItem('ahorradas-data'))
+            const lStorage = JSON.parse(localStorage.getItem('ahorradas-data'))
 
             let findIndex = lStorage.operations.findIndex(operation => operation.id == e.target.value)
             lStorage.operations.splice(findIndex, 1)
+            
 
             localStorage.setItem('ahorradas-data', JSON.stringify(lStorage))
-            loadOperations()
+            balance()
+            window.location.reload()
             showOrEmpty()
-
-            }
-                    
-            deleteOperation(e)
+            
         })
     });
 
@@ -429,7 +503,6 @@ const createCategoryFilter = () => {
 
     const ls_storage = JSON.parse(localStorage.getItem('ahorradas-data'))
 
-
     ls_storage.categories.forEach(category => {
 
         for(const prop in category) {
@@ -437,7 +510,7 @@ const createCategoryFilter = () => {
             if(prop == "name") {
 
                 const option = document.createElement('option')
-                option.setAttribute('value', `${category.name}`)
+                option.setAttribute('value', `${category.id}`)
                 option.setAttribute('id', `${category.name}`)
                 option.textContent = `${category.name}`
                 
@@ -480,3 +553,42 @@ const showOrEmpty = () => {
 }
 
 showOrEmpty()
+
+// Filtros
+
+const filters = () => {
+
+    const ls_storage = JSON.parse(localStorage.getItem('ahorradas-data'))
+
+    ls_storage.operations.forEach(operation => {
+
+        if(operation.type == "Gasto") {
+
+            const noSelected = ls_storage.operations.filter(operation => operation.type !== "Gasto")
+            console.log(noSelected
+)
+                 
+
+        
+        }
+            
+           
+    })
+
+}
+
+filters()
+
+selectCategory.addEventListener('change', (e) => {
+    const params = new URLSearchParams(window.location.search);
+    params.set('category', e.target.value);
+
+    window.location.href = window.location.pathname + '?' + params.toString()
+})
+
+input.addEventListener('change', (e) => {
+    const params = new URLSearchParams(window.location.search);
+    params.set('date', e.target.value);
+    
+    window.location.href = window.location.pathname + '?' + params.toString()
+})
