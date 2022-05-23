@@ -88,7 +88,7 @@ var aBtnAdd = document.createElement('a');
 aBtnAdd.setAttribute('href', './index.html');
 var btnAdd = document.createElement('button');
 btnAdd.setAttribute('type', 'submit');
-btnAdd.classList.add('btn', 'btn-primary', 'active');
+btnAdd.classList.add('btn', 'btn-primary');
 btnAdd.textContent = 'Agregar';
 form.appendChild(div);
 div.appendChild(aBtnCancel);

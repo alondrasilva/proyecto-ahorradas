@@ -76,7 +76,7 @@ const body = document.body
 
 const header = document.createElement('header')
 const navbar = document.createElement('nav')
-navbar.classList.add('navbar', 'container-fluid', 'shadow-sm')
+navbar.classList.add('navbar', 'container-fluid')
 
 const navbarLogo = document.createElement('div')
 const navbarMenu = document.createElement('div')
@@ -88,9 +88,10 @@ navbar.appendChild(navbarMenu)
 
 const aNavbarLogo = document.createElement('a')
 aNavbarLogo.setAttribute('href', 'index.html')
-aNavbarLogo.classList.add('nav-link', 'navbar-brand', "title")
+aNavbarLogo.classList.add('nav-link', 'title')
+
 const imgNavbar = document.createElement('img')
-imgNavbar.setAttribute('src','./assets/images/wallet-solid.png')
+imgNavbar.setAttribute('src','./assets/images/logo-ahorradas.png')
 imgNavbar.setAttribute('alt', 'Navbar Logo')
 imgNavbar.setAttribute('width', '60')
 const titleNavbar = document.createTextNode('AhorrADAs')
@@ -166,4 +167,7 @@ const navbarItemText3 = document.createTextNode('Reportes')
 navbarList.appendChild(navbarItem3)
 aNavbarItem3.appendChild(imgReports)
 aNavbarItem3.appendChild(navbarItemText3)
+
+const footer = document.createElement('footer')
+footer.classList.add('fixed-bottom')
 

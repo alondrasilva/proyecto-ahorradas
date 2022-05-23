@@ -10,3 +10,10 @@ border-radius: 10px;
 h4 {
     margin-top:40px;
 }
+
+@media (max-width: 992px) {
+    .container {
+        width:90vw;
+    }
+
+}
