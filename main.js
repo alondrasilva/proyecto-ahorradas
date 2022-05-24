@@ -43,8 +43,9 @@ tr1.appendChild(td2);
 td2.appendChild(textTd2);
 var tr2 = document.createElement('tr');
 var td3 = document.createElement('td');
-var textTd3 = document.createTextNode('Gastos');
+// td3.setAttribute('value', '2')
 var td4 = document.createElement('td');
+var textTd3 = document.createTextNode('Gastos');
 td4.classList.add('text-end', 'color-red');
 var textTd4 = document.createTextNode('$0');
 tbody.appendChild(tr2);
@@ -96,15 +97,15 @@ selectTypes.setAttribute('id', 'select-types');
 //option todos
 var option1 = document.createElement('option');
 var textOption1 = document.createTextNode('Todos');
-option1.setAttribute('value', 'all');
+// option1.setAttribute('value', 'todos')
 //option gastos
 var option2 = document.createElement('option');
 var textOption2 = document.createTextNode('Gastos');
-option2.setAttribute('value', 'expenses');
+// option2.setAttribute('value', 'gastos')
 //option ganancias
 var option3 = document.createElement('option');
 var textOption3 = document.createTextNode('Ganancias');
-option2.setAttribute('value', 'revenues');
+// option2.setAttribute('value', 'ganancias')
 divFilter.appendChild(form);
 labelTypes.appendChild(textLabelTypes);
 form.appendChild(labelTypes);
@@ -123,7 +124,7 @@ var selectCategory = document.createElement('select');
 selectCategory.setAttribute('name', 'categories');
 selectCategory.setAttribute('id', 'filter-categories');
 var optionAll = document.createElement('option');
-optionAll.setAttribute('value', 'todos');
+optionAll.setAttribute('value', '0');
 optionAll.setAttribute('id', 'todos');
 optionAll.textContent = "Todos";
 selectCategory.appendChild(optionAll);
@@ -135,13 +136,13 @@ var textLabelDate = document.createTextNode('Desde');
 labelDate.setAttribute('for', 'input-date');
 labelDate.classList.add('d-block');
 //input date, fecha
-var input = document.createElement('input');
-input.setAttribute('name', 'input-date');
-input.setAttribute('type', 'date');
-input.setAttribute('value', '2022-01-01');
-input.setAttribute('id', 'input-date');
+var inputDate = document.createElement('input');
+inputDate.setAttribute('name', 'input-date');
+inputDate.setAttribute('type', 'date');
+inputDate.setAttribute('value', '2022-01-01');
+inputDate.setAttribute('id', 'input-date');
 form.appendChild(labelDate);
-form.appendChild(input);
+form.appendChild(inputDate);
 labelDate.appendChild(textLabelDate);
 //label ordenar
 var labelOrder = document.createElement('label');
@@ -238,9 +239,9 @@ var textTh2Operations = document.createTextNode('Monto');
 // const th3Operations = document.createElement('th')
 // const textTh3Operations = document.createTextNode('Tipo')
 var th4Operations = document.createElement('th');
-var textTh4Operations = document.createTextNode('Categoría');
+var textTh4Operations = document.createTextNode('Fecha');
 var th5Operations = document.createElement('th');
-var textTh5Operations = document.createTextNode('Fecha');
+var textTh5Operations = document.createTextNode('Categoría');
 var th6Operations = document.createElement('th');
 var textTh6Operations = document.createTextNode('Acciones');
 th6Operations.classList.add('text-center');
@@ -306,15 +307,17 @@ var loadOperations = function () {
     var params = new URLSearchParams(window.location.search);
     operations = operations.filter(function (op) { return op.categoryID === params.get('category'); });
     operations = operations.filter(function (op) {
-        var dasdeDate = new Date(params.get('date'));
+        var desdeDate = new Date(params.get('date'));
         var opDate = new Date(op.date);
-        return dasdeDate.getTime() <= opDate.getTime();
+        return desdeDate.getTime() <= opDate.getTime();
     });
+    // operations = operations.filter(op => op.type === params.get('type'));
+    // operations = operations.filter
     operations.forEach(function (operation) {
         var tr = document.createElement('tr');
         tr.setAttribute('value', operation.id);
         for (var prop in operation) {
-            if ((prop != "id") && (prop !== "categoryID") && ("prop != type")) {
+            if ((prop !== "id") && (prop !== "categoryID") && (prop !== "type")) {
                 var td_1 = document.createElement('td');
                 td_1.appendChild(document.createTextNode(operation[prop]));
                 tr.appendChild(td_1);
@@ -393,23 +396,13 @@ var showOrEmpty = function () {
     }
 };
 showOrEmpty();
-// Filtros
-var filters = function () {
-    var ls_storage = JSON.parse(localStorage.getItem('ahorradas-data'));
-    ls_storage.operations.forEach(function (operation) {
-        if (operation.type == "Gasto") {
-            var noSelected = ls_storage.operations.filter(function (operation) { return operation.type !== "Gasto"; });
-            console.log(noSelected);
-        }
-    });
-};
-filters();
 selectCategory.addEventListener('change', function (e) {
     var params = new URLSearchParams(window.location.search);
     params.set('category', e.target.value);
     window.location.href = window.location.pathname + '?' + params.toString();
+    // selectCategory.value = ""
 });
-input.addEventListener('change', function (e) {
+inputDate.addEventListener('change', function (e) {
     var params = new URLSearchParams(window.location.search);
     params.set('date', e.target.value);
     window.location.href = window.location.pathname + '?' + params.toString();
