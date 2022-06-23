@@ -127,8 +127,9 @@ form.addEventListener('submit', function (e) {
         "amount": inputAmount.value,
         "type": selectType.value,
         "categoryID": selectCategory.value,
-        "categoryName": selectCategory.value,
+        // "categoryName" : selectCategory.value,
         "date": inputDate.value
     });
     localStorage.setItem('ahorradas-data', JSON.stringify(ls_Storage));
+    window.location.href = "index.html";
 });

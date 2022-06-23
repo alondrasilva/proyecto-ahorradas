@@ -419,7 +419,10 @@ const loadOperations = ()=> {
 
     const params = new URLSearchParams(window.location.search)
 
-    operations = operations.filter(op => op.categoryID === params.get('category'));
+    if(params.get('category')) {
+        operations = operations.filter(op => op.categoryID === params.get('category'));
+    }
+    
     operations = operations.filter(op => {
         const dasdeDate = new Date(params.get('date'));
         const opDate = new Date(op.date);       

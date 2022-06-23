@@ -79,4 +79,5 @@ formEdit.addEventListener('submit', function (e) {
     localStorage.setItem('ahorradas-data', JSON.stringify(__assign(__assign({}, storage), { 
         // operations: 
         categories: newItemsCategories })));
+    window.location.href = "categories.html";
 });

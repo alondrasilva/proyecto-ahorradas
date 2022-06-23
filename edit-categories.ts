@@ -101,6 +101,7 @@ formEdit.addEventListener('submit', (e) => {
         // operations: 
         categories: newItemsCategories,
     }))
+    window.location.href = "categories.html"
 
 })
 

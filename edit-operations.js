@@ -100,7 +100,7 @@ aBtnAdd.setAttribute('href', './index.html');
 var btnAdd = document.createElement('button');
 btnAdd.setAttribute('type', 'submit');
 btnAdd.classList.add('btn', 'btn-primary', 'active');
-btnAdd.textContent = 'Agregar';
+btnAdd.textContent = 'Editar';
 form.appendChild(div);
 div.appendChild(aBtnCancel);
 aBtnCancel.appendChild(btnCancel);
@@ -129,9 +129,10 @@ form.addEventListener('submit', function (e) {
     var payload = {
         "id": item.id,
         "description": inputDescription.value,
+        "amount": inputAmount.value,
         "type": selectType.value,
         "categoryID": selectCategory.value,
-        "categoryName": getNameCategory(id),
+        // "categoryName" : getNameCategory(id), // No me trae las categorías, puede ser porque se crean por defecto dependiendo de las que estan creadas
         "date": inputDate.value
     };
     console.log(payload);
@@ -142,4 +143,5 @@ form.addEventListener('submit', function (e) {
         return item;
     });
     localStorage.setItem('ahorradas-data', JSON.stringify(__assign(__assign({}, storage), { operations: newItems })));
+    window.location.href = "index.html";
 });
