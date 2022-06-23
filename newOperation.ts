@@ -181,7 +181,6 @@ form.addEventListener('submit', (e) => {
         "amount" : inputAmount.value,
         "type" : selectType.value,
         "categoryID" : selectCategory.value,
-        // "categoryName" : selectCategory.value,
         "date" : inputDate.value
 
     }) 

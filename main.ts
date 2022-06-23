@@ -59,8 +59,9 @@ td2.appendChild(textTd2)
 
 const tr2 = document.createElement('tr')
 const td3 = document.createElement('td')
-const textTd3 = document.createTextNode('Gastos')
+// td3.setAttribute('value', '2')
 const td4 = document.createElement('td')
+const textTd3 = document.createTextNode('Gastos')
 td4.classList.add('text-end', 'color-red')
 const textTd4 = document.createTextNode('$0')
 
@@ -129,17 +130,17 @@ selectTypes.setAttribute('id', 'select-types')
 //option todos
 const option1 = document.createElement('option')
 const textOption1 = document.createTextNode('Todos')
-option1.setAttribute('value', 'all')
+// option1.setAttribute('value', 'todos')
 
 //option gastos
 const option2 = document.createElement('option')
 const textOption2 = document.createTextNode('Gastos')
-option2.setAttribute('value', 'expenses')
+// option2.setAttribute('value', 'gastos')
 
 //option ganancias
 const option3 = document.createElement('option')
 const textOption3 = document.createTextNode('Ganancias')
-option2.setAttribute('value', 'revenues')
+// option2.setAttribute('value', 'ganancias')
 
 divFilter.appendChild(form)
 
@@ -166,7 +167,7 @@ selectCategory.setAttribute('name', 'categories')
 selectCategory.setAttribute('id', 'filter-categories')
 
 const optionAll = document.createElement('option')
-optionAll.setAttribute('value', 'todos')
+optionAll.setAttribute('value', '0')
 optionAll.setAttribute('id', 'todos')
 optionAll.textContent = "Todos"
                 
@@ -183,14 +184,14 @@ labelDate.setAttribute('for', 'input-date')
 labelDate.classList.add('d-block')
 
 //input date, fecha
-const input = document.createElement('input')
-input.setAttribute('name', 'input-date')
-input.setAttribute('type', 'date')
-input.setAttribute('value', '2022-01-01')
-input.setAttribute('id', 'input-date')
+const inputDate = document.createElement('input')
+inputDate.setAttribute('name', 'input-date')
+inputDate.setAttribute('type', 'date')
+inputDate.setAttribute('value', '2022-01-01')
+inputDate.setAttribute('id', 'input-date')
 
 form.appendChild(labelDate)
-form.appendChild(input)
+form.appendChild(inputDate)
 
 labelDate.appendChild(textLabelDate)
 
@@ -323,10 +324,10 @@ const textTh2Operations = document.createTextNode('Monto')
 // const textTh3Operations = document.createTextNode('Tipo')
 
 const th4Operations = document.createElement('th')
-const textTh4Operations = document.createTextNode('Categoría')
+const textTh4Operations = document.createTextNode('Fecha')
 
 const th5Operations = document.createElement('th')
-const textTh5Operations = document.createTextNode('Fecha')
+const textTh5Operations = document.createTextNode('Categoría')
 
 const th6Operations = document.createElement('th')
 const textTh6Operations = document.createTextNode('Acciones')
@@ -409,7 +410,7 @@ const getNameCategory = (id) => {
 
 }
 
-const loadOperations = ()=> {
+const loadOperations = () => {
 
     tbodyOperations.innerHTML = ""
 
@@ -424,11 +425,13 @@ const loadOperations = ()=> {
     }
     
     operations = operations.filter(op => {
-        const dasdeDate = new Date(params.get('date'));
+        const desdeDate = new Date(params.get('date'));
         const opDate = new Date(op.date);       
 
-        return dasdeDate.getTime() <= opDate.getTime();
+        return desdeDate.getTime() <= opDate.getTime();
     });
+    // operations = operations.filter(op => op.type === params.get('type'));
+    // operations = operations.filter
 
     operations.forEach(operation => {
 
@@ -437,7 +440,7 @@ const loadOperations = ()=> {
 
         for(const prop in operation) {
 
-            if((prop != "id") && (prop !== "categoryID") && ("prop != type")) {
+            if((prop !== "id") && (prop !== "categoryID") && (prop !== "type")) {
 
                 const td = document.createElement('td')
                 
@@ -557,39 +560,18 @@ const showOrEmpty = () => {
 
 showOrEmpty()
 
-// Filtros
-
-const filters = () => {
-
-    const ls_storage = JSON.parse(localStorage.getItem('ahorradas-data'))
-
-    ls_storage.operations.forEach(operation => {
-
-        if(operation.type == "Gasto") {
-
-            const noSelected = ls_storage.operations.filter(operation => operation.type !== "Gasto")
-            console.log(noSelected
-)
-                 
-
-        
-        }
-            
-           
-    })
-
-}
-
-filters()
 
 selectCategory.addEventListener('change', (e) => {
+
     const params = new URLSearchParams(window.location.search);
     params.set('category', e.target.value);
 
     window.location.href = window.location.pathname + '?' + params.toString()
+
+    // selectCategory.value = ""
 })
 
-input.addEventListener('change', (e) => {
+inputDate.addEventListener('change', (e) => {
     const params = new URLSearchParams(window.location.search);
     params.set('date', e.target.value);
     
