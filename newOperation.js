@@ -130,4 +130,5 @@ form.addEventListener('submit', function (e) {
         "date": inputDate.value
     });
     localStorage.setItem('ahorradas-data', JSON.stringify(ls_Storage));
+    window.location.href = "index.html";
 });

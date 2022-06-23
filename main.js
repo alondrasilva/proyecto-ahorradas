@@ -305,7 +305,9 @@ var loadOperations = function () {
     var ls_Storage = JSON.parse(localStorage.getItem('ahorradas-data'));
     var operations = ls_Storage.operations;
     var params = new URLSearchParams(window.location.search);
-    operations = operations.filter(function (op) { return op.categoryID === params.get('category'); });
+    if (params.get('category')) {
+        operations = operations.filter(function (op) { return op.categoryID === params.get('category'); });
+    }
     operations = operations.filter(function (op) {
         var desdeDate = new Date(params.get('date'));
         var opDate = new Date(op.date);

@@ -126,7 +126,7 @@ aBtnAdd.setAttribute('href', './index.html')
 const btnAdd = document.createElement('button')
 btnAdd.setAttribute('type', 'submit')
 btnAdd.classList.add('btn', 'btn-primary', 'active')
-btnAdd.textContent = 'Agregar'
+btnAdd.textContent = 'Editar'
 
 form.appendChild(div)
 div.appendChild(aBtnCancel)
@@ -173,9 +173,10 @@ form.addEventListener('submit', (e) => {
     const payload = {
         "id" : item.id,
         "description" : inputDescription.value,
+        "amount" : inputAmount.value,
         "type" : selectType.value,
         "categoryID" : selectCategory.value,
-        "categoryName" : getNameCategory(id), // No me trae las categorías, puede ser porque se crean por defecto dependiendo de las que estan creadas
+        // "categoryName" : getNameCategory(id), // No me trae las categorías, puede ser porque se crean por defecto dependiendo de las que estan creadas
         "date" : inputDate.value
     }
     console.log(payload)
@@ -192,5 +193,7 @@ form.addEventListener('submit', (e) => {
         ...storage,
         operations: newItems,
     }))
+
+    window.location.href = "index.html"
 
 })

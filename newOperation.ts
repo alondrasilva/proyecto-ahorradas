@@ -185,5 +185,7 @@ form.addEventListener('submit', (e) => {
 
     }) 
     localStorage.setItem('ahorradas-data', JSON.stringify(ls_Storage))
+
+    window.location.href = "index.html"
 })
 
